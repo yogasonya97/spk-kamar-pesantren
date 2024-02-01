@@ -14,6 +14,11 @@ class Auth extends CI_Controller
 		//proses
 	}
 
+	public function login()
+	{
+		$this->load->view('mobile/auth/login');
+	}
+
 	public function aktivasi($id_user=null)
 	{
 		if ($this->session->has_userdata('validate')) {
@@ -44,23 +49,24 @@ class Auth extends CI_Controller
 
 	public function sign()
 	{
-		$username = $this->input->post('email');
+		$email = $this->input->post('email');
 		$password = md5($this->input->post('password'));
 
-		$data = $this->db->get_where('user',[
-			'email' => $username,
+		$data = $this->db->get_where('users',[
+			'email' => $email,
 			'password' => $password,
 		]);
 
 		$result = $data->row();
 
-		if ($result == null) {
-			?>
-			<script type="text/javascript">alert("Email atau Password Salah."); window.history.back();</script>
-			<?php
-			// redirect(base_url() . 'admin');
+		if (!$result) {
+			$res[0] = [
+				'responseCode' => 0,
+				'response' => 'Akun tidak ditemukan'
+			];
+			return $this->response->json($res);
 		}
-		else {
+		
 			if ($result->status_akun == 0) {
 				// redirect(base_url() . 'auth/aktivasi/'.$result->id_user);
 
@@ -119,7 +125,7 @@ class Auth extends CI_Controller
 				}
 			} 
 
-		}
+		
 	}
 
 	public function aktivasiAkun($id_user)

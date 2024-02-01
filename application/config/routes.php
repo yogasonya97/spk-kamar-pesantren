@@ -51,8 +51,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['default_controller'] = 'landing_page';
 
+$route['login'] = 'Auth/login';
+$route['auth/login-proses'] = 'Auth/sign';
+
+
 $route['admin'] = 'Admin';
-$route['pelanggan'] = 'Pelanggan';
+$route['client'] = 'Client/index';
 
 
 $route['404_override'] = '';
