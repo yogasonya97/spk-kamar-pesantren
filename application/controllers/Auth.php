@@ -11,7 +11,15 @@ class Auth extends CI_Controller
 
 	public function index()
 	{
-		//proses
+		if (!$this->session->has_userdata('validate')) {
+			return redirect(base_url() . 'login');
+		}
+		$getSession = $this->session->userdata;
+		if($getSession[0]['role'] == '1') {
+			return redirect(base_url() . 'admin');
+		} else if($getSession[0]['role'] == '2') {
+			return redirect(base_url() . 'client');
+		}
 	}
 
 	public function login()
@@ -60,109 +68,34 @@ class Auth extends CI_Controller
 		$result = $data->row();
 
 		if (!$result) {
-			$res[0] = [
+			$res = [
 				'responseCode' => 0,
-				'response' => 'Akun tidak ditemukan'
+				'response' => 'Email atau password salah'
 			];
 			return $this->response->json($res);
 		}
 		
-			if ($result->status_akun == 0) {
-				// redirect(base_url() . 'auth/aktivasi/'.$result->id_user);
-
-				?>
-				<script type="text/javascript">alert("Lakukan Aktivasi Akun."); window.location.href="<?php echo base_url();?>auth/aktivasi/<?php echo $result->id_user; ?>"</script>
-				<?php
-			} else if ($result->status_akun == 1) {
-				if ($result->level_user == 'Kurir') {
-
-				//check
-					$this->session->set_userdata([
-						'user_id' => $result->id_user,
-						'email' => $username,
-						'nama' => $result->nama_lengkap,
-						'role' => $result->level_user,
-						'status_akun' => $result->status_akun,
-						'validate' => true
-					]);
-
-					?>
-					<script type="text/javascript">alert("Login Berhasil."); window.location.href="<?php echo base_url();?>kurir"</script>
-					<?php
-
-				} else if ($result->level_user == 'Admin') {
-
-				//check
-					$this->session->set_userdata([
-						'user_id' => $result->id_user,
-						'email' => $username,
-						'nama' => $result->nama_lengkap,
-						'role' => $result->level_user,
-						'status_akun' => $result->status_akun,
-						'validate' => true
-					]);
-
-					?>
-					<script type="text/javascript">alert("Login Berhasil."); window.location.href="<?php echo base_url();?>admin"</script>
-					<?php
-
-				} else if ($result->level_user == 'Pelanggan') {
-
-				//check
-					$this->session->set_userdata([
-						'user_id' => $result->id_user,
-						'email' => $username,
-						'nama' => $result->nama_lengkap,
-						'role' => $result->level_user,
-						'status_akun' => $result->status_akun,
-						'validate' => true
-					]);
-
-					?>
-					<script type="text/javascript">alert("Login Berhasil."); window.location.href="<?php echo base_url();?>pelanggan/dashboard"</script>
-					<?php
-
-				}
-			} 
-
-		
-	}
-
-	public function aktivasiAkun($id_user)
-	{
-		$password = md5($this->input->post('password'));
-
-		$data = $this->db->get_where('user',[
-			'id_user' => $id_user,
+		$this->session->set_userdata([
+			'user_id' => $result->userId,
+			'email' => $email,
+			'nama' => $result->fullName,
+			'role' => $result->levelUser,
+			'validate' => true
 		]);
 
-		$result = $data->row();
+		$res = [
+			'responseCode' => 1,
+			'response' => 'Berhasil Login'
+		];
 
-		if ($result == null) {
-			?>
-			<script type="text/javascript">alert("Aktivasi Gagal."); window.location.href="<?php echo base_url();?>login"</script>
-			<?php
-		} else {
-			$updateData = array('password' => $password, 'status_akun' => 1,);
-			$this->db->where('id_user', $id_user);
-			$query = $this->db->update('user', $updateData);
-			if ($query) {
-				if ($result->level_user == "Admin") {
-					?>
-					<script type="text/javascript">alert("Aktivasi Berhasil."); window.location.href="<?php echo base_url();?>login"</script>
-					<?php
-				}else if ($result->level_user == "Kurir"){
-					?>
-					<script type="text/javascript">alert("Aktivasi Berhasil."); window.location.href="<?php echo base_url();?>kurir"</script>
-					<?php
-				}else if ($result->level_user == "Pelanggan") {
-					?>
-					<script type="text/javascript">alert("Aktivasi Berhasil."); window.location.href="<?php echo base_url();?>pelanggan/login"</script>
-					<?php
-				}
-				
-			}
-		}
+		if ($result->levelUser == '1') {
+			$res['role'] = '1';
+			return $this->response->json($res);
+		} else if ($result->levelUser == '2') {
+			$res['role'] = '2';
+			return $this->response->json($res);
+		} 
+		
 	}
 
 	public function ubahPassword()
@@ -212,18 +145,9 @@ class Auth extends CI_Controller
 
 	public function logout()
 	{
-		$getSession = $this->session->userdata;
-		if ($getSession['role']=="Admin") {
-			$this->session->sess_destroy();
-			redirect(base_url() . 'login' );
-		}else if ($getSession['role']=="Pelanggan"){
-			$this->session->sess_destroy();
-			redirect(base_url() . 'pelanggan/login' );
-		}else if ($getSession['role']=="Kurir") {
-			$this->session->sess_destroy();
-			redirect(base_url() . 'kurir' );
-		}
-		
+		$this->session->sess_destroy();
+
+		redirect(base_url() . 'login');
 	}
 	
 }

@@ -24,31 +24,13 @@
 </head>
 
 <body class="theme-light">
-    <div aria-live="polite" aria-atomic="true" class="position-relative" style="display:none">
-        <!-- Position it: -->
-        <!-- - `.toast-container` for spacing between toasts -->
-        <!-- - `.position-absolute`, `top-0` & `end-0` to position the toasts in the upper right corner -->
-        <!-- - `.p-3` to prevent the toasts from sticking to the edge of the container  -->
-        <div class="toast-container position-absolute top-0 end-0 p-3">
-            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header">
-                    <img src="..." class="rounded me-2" alt="...">
-                    <strong class="me-auto">Bootstrap</strong>
-                    <small class="text-muted">just now</small>
-                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-                <div class="toast-body">
-                    See? Just like this.
-                </div>
-            </div>
-        </div>
-    </div>
+  
     <div id="preloader">
         <div class="spinner-border color-highlight" role="status"></div>
     </div>
     <div id="page">
         <div class="page-content header-clear-medium">
-            <form id="formLoginId">
+            <form id="formLoginId" method="post">
                 <div class="card card-style">
                     <div class="content">
                         <h1 class="text-center font-800 font-30 mb-2">Sign In</h1>
@@ -62,30 +44,15 @@
                         </div>
                         <div class="form-custom form-label form-icon mb-3">
                             <i class="bi bi-asterisk font-12"></i>
-                            <input type="password" class="form-control rounded-xs" id="password" placeholder="Password"
-                                required />
+                            <input type="password" class="form-control rounded-xs" id="password" name="password" placeholder="Password"
+                                required>
                             <label for="password" class="color-theme">Password</label>
                             <span>(required)</span>
                         </div>
                         <button type="submit"
-                            class="btn rounded-sm btn-m gradient-green text-uppercase font-700 mt-4 mb-3 btn-full shadow-bg shadow-bg-s w-100">Sign
-                            In</>
-                            <!-- <div class="d-flex">
-                                <div>
-                                    <a
-                                        href="page-forgot-1.html"
-                                        class="color-theme opacity-30 font-12"
-                                        >Recover Account</a
-                                    >
-                                </div>
-                                <div class="ms-auto">
-                                    <a
-                                        href="page-register-1.html"
-                                        class="color-theme opacity-30 font-12"
-                                        >Create Account</a
-                                    >
-                                </div>
-                            </div> -->
+                            class="btn rounded-sm btn-m gradient-green text-uppercase font-700 mt-4 mb-3 btn-full shadow-bg shadow-bg-s w-100">
+                            Sign In
+                        </button>
                     </div>
                 </div>
             </form>
@@ -99,14 +66,20 @@
             $(document).ready(function () {
                 $(`#formLoginId`).submit(async (e) => {
                     e.preventDefault();
+                    // await console.log('test');
+                    // return
                     try {
                         let formData = $(`#formLoginId`).serialize();
                         const { data } = await axios.post(`/auth/login-proses`, formData);
-                        if (data[0].responCode != 1) {
-                            alert()
+                        if (data.responseCode != 1) {
+                            return alert(data.response);
                         }
-                        return location.href = ``;
-                        console.log(data);
+
+                        if (data.role == '1') {
+                            location.href = '/admin';
+                        } else {
+                            location.href = '/client';
+                        }
                     } catch (error) {
                         console.log(error);
                     }
