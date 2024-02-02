@@ -66,7 +66,6 @@ class Auth extends CI_Controller
 		]);
 
 		$result = $data->row();
-
 		if (!$result) {
 			$res = [
 				'responseCode' => 0,

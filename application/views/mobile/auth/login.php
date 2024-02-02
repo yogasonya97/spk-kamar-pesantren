@@ -11,15 +11,15 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
     <title>SPK Penilaian Kamar</title>
-    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/mobile/styles/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/mobile/fonts/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/mobile_old/styles/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/mobile_old/fonts/bootstrap-icons.css">
     <link rel="preconnect" href="https://fonts.gstatic.com/">
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&amp;family=Roboto:wght@400;500;700&amp;display=swap"
         rel="stylesheet">
-    <link rel="manifest" href="<?= base_url() ?>assets/mobile/_manifest.json">
+    <link rel="manifest" href="<?= base_url() ?>assets/mobile_old/_manifest.json">
     <meta id="theme-check" name="theme-color" content="#FFFFFF">
-    <link rel="apple-touch-icon" sizes="180x180" href="<?= base_url() ?>assets/mobile/app/icons/icon-192x192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="<?= base_url() ?>assets/mobile_old/app/icons/icon-192x192.png">
 
 </head>
 
@@ -58,10 +58,10 @@
             </form>
         </div>
 
-        <script src="<?= base_url() ?>assets/mobile/scripts/jquery.min.js"></script>
-        <script src="<?= base_url() ?>assets/mobile/scripts/bootstrap.min.js"></script>
-        <script src="<?= base_url() ?>assets/mobile/scripts/custom.js"></script>
-        <script src="<?= base_url() ?>assets/mobile/scripts/axios.min.js"></script>
+        <script src="<?= base_url() ?>assets/mobile_old/scripts/jquery.min.js"></script>
+        <script src="<?= base_url() ?>assets/mobile_old/scripts/bootstrap.min.js"></script>
+        <script src="<?= base_url() ?>assets/mobile_old/scripts/custom.js"></script>
+        <script src="<?= base_url() ?>assets/mobile_old/scripts/axios.min.js"></script>
         <script>
             $(document).ready(function () {
                 $(`#formLoginId`).submit(async (e) => {
