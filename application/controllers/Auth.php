@@ -15,44 +15,26 @@ class Auth extends CI_Controller
 			return redirect(base_url() . 'login');
 		}
 		$getSession = $this->session->userdata;
-		if($getSession[0]['role'] == '1') {
+		var_dump($getSession['role']);
+		if($getSession['role'] == '1') {
 			return redirect(base_url() . 'admin');
-		} else if($getSession[0]['role'] == '2') {
+		} else if($getSession['role'] == '2') {
 			return redirect(base_url() . 'client');
 		}
+
+		$this->load->model('crud_model');
 	}
 
 	public function login()
 	{
+		
 		$this->load->view('mobile/auth/login');
 	}
 
-	public function aktivasi($id_user=null)
+	public function register()
 	{
-		if ($this->session->has_userdata('validate')) {
 
-			$getSession = $this->session->userdata;
-			$role = $getSession['role'];
-
-			if ($result->level_user == 'Admin') {
-				redirect(base_url() . 'admin');
-			} else if ($result->level_user == 'Kurir') {
-				redirect(base_url() . 'admin');
-			} else if ($result->level_user == 'Pelanggan') {
-				redirect(base_url() . 'admin');
-			}
-			
-		}else {
-			$data['id_user'] = $id_user;
-			if ($id_user==null) {
-				echo "Halaman Tidak Bisa Di Akses!";
-			} else {
-				$this->load->view('auth/header.php');
-				$this->load->view('auth/aktivasi.php',$data);
-				$this->load->view('auth/footer.php');
-			}
-			
-		}
+		$this->load->view('mobile/auth/register');
 	}
 
 	public function sign()
@@ -94,6 +76,51 @@ class Auth extends CI_Controller
 			$res['role'] = '2';
 			return $this->response->json($res);
 		} 
+		
+	}
+
+	public function registerProses()
+	{
+		$fullName = $this->input->post('fullName');
+		$email = $this->input->post('email');
+		$password = md5($this->input->post('password'));
+
+		$data = $this->db->get_where('users',[
+			'email' => $email,
+			'fullName' => $fullName
+		]);
+
+		$result = $data->row();
+		if ($result) {
+			$res = [
+				'responseCode' => 0,
+				'response' => 'Data sudah ada'
+			];
+			return $this->response->json($res);
+		}
+
+		$params = [
+			'email' => $email,
+			'fullName' => $fullName,
+			'password' => $password,
+			'levelUser' => 2,
+		];
+		
+		$res = $this->Crud_model->input_data($params, 'users');
+
+		if (!$res) {
+			$res = [
+				'responseCode' => 0,
+				'response' => 'Gagal Simpan'
+			];
+			return $this->response->json($res);
+		}
+
+		$res = [
+			'responseCode' => 1,
+			'response' => 'Berhasil buat akun, silahkan login'
+		];
+		return $this->response->json($res);
 		
 	}
 
