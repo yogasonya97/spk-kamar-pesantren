@@ -54,7 +54,9 @@ $route['/'] = 'Auth/index';
 
 $route['login'] = 'Auth/login';
 $route['logout'] = 'Auth/logout';
+$route['register'] = 'Auth/register';
 $route['auth/login-proses'] = 'Auth/sign';
+$route['auth/register-proses'] = 'Auth/registerProses';
 
 
 $route['admin'] = 'Admin/Dashboard/index';
@@ -62,4 +64,5 @@ $route['client'] = 'Clients/Dashboard/index';
 
 
 $route['404_override'] = '';
+$route['error-403_override'] = 'ErrorHandle/forbiddenError403';
 $route['translate_uri_dashes'] = FALSE;

@@ -85,33 +85,38 @@
                         </div>
                     </div>
                     <div class="section-head">
-                        <h3 class="title">Masuk</h3>
+                        <h3 class="title">Buat Akun</h3>
                         <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor </p> -->
                     </div>
                     <div class="account-section">
-                        <form id="formLoginId" class="m-b30">
+                        <form id="formRegisterId" class="m-b30">
                             <div class="mb-4">
-                                <label class="form-label" for="name">Email</label>
+                                <label class="form-label" for="name">Nama Lengkap</label>
                                 <div class="input-group input-mini input-lg">
-                                    <input type="email" id="email" name="email" class="form-control" value="" required>
+                                    <input type="name" id="name" name="fullName" class="form-control" placeholder="Masukkan Nama Lengkap" required>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label" for="email">Email</label>
+                                <div class="input-group input-mini input-lg">
+                                    <input type="email" id="email" name="email" class="form-control" placeholder="info@examplegmail.com" required>
                                 </div>
                             </div>
                             <div class="m-b30">
                                 <label class="form-label" for="password">Password</label>
                                 <div class="input-group input-mini input-lg">
-                                    <input type="password" id="password" name="password" class="form-control dz-password"
-                                        value="" required>
-                                    <span class="input-group-text show-pass">
+                                    <input type="password" id="password" name="password" class="form-control dz-password" placeholder="Masukkan Password" required>
+                                    <span class="input-group-text show-pass"> 
                                         <i class="icon feather icon-eye-off eye-close"></i>
                                         <i class="icon feather icon-eye eye-open"></i>
                                     </span>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-thin btn-lg w-100 btn-primary rounded-xl mb-3">Masuk</button>
+                            <button type="submit" class="btn btn-thin btn-lg w-100 btn-primary rounded-xl">Buat Akun</button>
                         </form>
                         <div class="text-center account-footer">
-                            <p class="text-light">Belum punya akun?</p>
-                            <a href="/register" class="btn btn-secondary btn-lg btn-thin rounded-xl w-100">Buat Akun</a>
+                            <p class="text-light">Sudah punya akun?</p>
+                            <a href="/login" class="btn btn-secondary btn-lg btn-thin rounded-xl w-100">Masuk</a>
                         </div>
                     </div>
                 </div>
@@ -133,20 +138,18 @@
     <script src="<?= base_url() ?>assets/mobile/assets/js/axios.min.js"></script>
     <script>
         $(document).ready(function () {
-            $(`#formLoginId`).submit(async (e) => {
+            $(`#formRegisterId`).submit(async (e) => {
                 e.preventDefault();
                 try {
-                    let formData = $(`#formLoginId`).serialize();
-                    const { data } = await axios.post(`/auth/login-proses`, formData);
+                    let formData = $(`#formRegisterId`).serialize();
+                    const { data } = await axios.post(`/auth/register-proses`, formData);
                     if (data.responseCode != 1) {
                         return alert(data.response);
                     }
 
-                    if (data.role == '1') {
-                        location.href = '/admin';
-                    } else {
-                        location.href = '/client';
-                    }
+                    alert(data.response);
+                    location.href = '/login';
+                  
                 } catch (error) {
                     console.log(error);
                 }
