@@ -44,7 +44,6 @@
     const loadListKamar = async () => {
         const { data } = await axios.get(`${parentUrl}/get-list-data-kamar`);
         listKamarG = data;
-        console.log(Object.values(listKamarG));
         setList(data)
     }
 
@@ -119,7 +118,7 @@
 			console.log(error);
 		}
     }
-    
+
     const deleteKamar = async(kamarId) => {
 		try {
 			const { data } = await axios.delete(`${parentUrl}/delete`, {
