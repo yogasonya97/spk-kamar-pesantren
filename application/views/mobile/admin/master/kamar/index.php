@@ -119,7 +119,7 @@
 			console.log(error);
 		}
     }
-
+    git config --global user.name "yogasonya97"
     const deleteKamar = async(kamarId) => {
 		try {
 			const { data } = await axios.delete(`${parentUrl}/delete`, {
