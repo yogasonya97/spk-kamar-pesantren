@@ -9,7 +9,7 @@ class Tp
         $this->ci =& get_instance();
     }
 
-    function mobile($page, $data=null)
+    function mobile($page, $data=null, $addView=null)
     {
         $d['_content'] = $this->ci->load->view($page, $data, true);
         $this->ci->load->view('mobile/layouts/master_layouts', $d);

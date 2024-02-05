@@ -2,13 +2,13 @@
           <div class="header-content">
             <div class="left-content">
               <div class="info">
-                <p class="text m-b10">Assalammualaikum,wr.,wb.</p>
-                <h3 class="title"><?= $this->session->userdata('nama') ?></h3>
+                <p class="text m-b10"><?= $title; ?></p>
+                <h3 class="title"><?= $subtitle; ?></h3>
               </div>
             </div>
             <div class="mid-content"></div>
             <div class="right-content d-flex align-items-center gap-4">
-              <a
+              <!-- <a
                 href="notification.html"
                 class="notification-badge font-20 badge-active"
               >
@@ -25,7 +25,7 @@
                     fill="#04764E"
                   ></path>
                 </svg>
-              </a>
+              </a> -->
               <a href="javascript:void(0);" class="icon dz-floating-toggler">
                 <svg
                   width="24"

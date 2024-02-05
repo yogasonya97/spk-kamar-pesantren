@@ -38,7 +38,10 @@ class Dashboard extends CI_Controller {
 	// PAGE
 	public function index()
 	{
-		$this->tp->mobile('mobile/admin/index');
+		$data['title'] = 'Assalammualaikum, wr,wb';
+		$data['subtitle'] = $this->session->userdata('nama');
+		// $data['modalSection']
+		$this->tp->mobile('mobile/admin/index', $data);
 	}
 
 

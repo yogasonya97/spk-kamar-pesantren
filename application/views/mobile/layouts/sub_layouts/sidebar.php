@@ -41,7 +41,7 @@
           </li>
           <?php if ($this->session->userdata('role') == '1') :  ?>
           <li>
-            <a class="nav-link" href="/">
+            <a class="nav-link" href="/admin/master/kamar">
             <?xml version="1.0" ?>
             <span class="dz-icon">
                 <svg
@@ -68,7 +68,7 @@
             </a>
           </li>
           <li>
-            <a class="nav-link" href="/">
+            <a class="nav-link" href="/admin/master/kriteria">
               <span class="dz-icon">
                 <svg
                   width="24"
