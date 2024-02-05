@@ -171,7 +171,7 @@
     <!-- Nav Floting End -->
 
     <!-- Modal -->
-    <div class="modal fade dz-pwa-modal" id="pwaModal" tabindex="-1" aria-labelledby="pwaModalLabel" aria-hidden="true">
+    <!-- <div class="modal fade dz-pwa-modal" id="pwaModal" tabindex="-1" aria-labelledby="pwaModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <a href="javascript:void(0);" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
@@ -193,7 +193,7 @@
           </button>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- PWA End -->
   </div>
   <!--**********************************

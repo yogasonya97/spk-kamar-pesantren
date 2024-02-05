@@ -51,7 +51,6 @@ class Crud_model extends CI_Model
  
     function update_data($where,$data,$table)
     {
-		// var_dump($where);
         $this->db->where($where);
         $this->db->update($table,$data);
         if ($this->db->affected_rows() > 0) {
