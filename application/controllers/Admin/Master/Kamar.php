@@ -52,15 +52,14 @@ class Kamar extends CI_Controller {
     public function save()
     {
         $typeForm = $this->input->post('typeForm');
-        $checkDuplicate = $this->db->get_where('master_kamar',[
-			'kodeKamar' => $this->input->post('kodeKamar'),
-			// 'namaKamar' => $this->input->post('namaKamar'),
-			// 'aliasKamar' => $this->input->post('aliasKamar')
+		$idKamar = $this->input->post('kamarId');
+		$checkDuplicate = $this->db->get_where('master_kamar',[
+			'kodeKamar' => $this->input->post('kodeKamar')
 		]);
 
 		$res = $checkDuplicate->row();
 
-		if ($res) {
+		if ($typeForm == 'add' && $res) {
 			$res = [
 				'responseCode' => 0,
 				'response' => 'Data Sudah Ada'
@@ -77,12 +76,19 @@ class Kamar extends CI_Controller {
         if ($typeForm == 'add') {
             $res = $this->Crud_model->input_data($params, 'master_kamar');
         } else {
-            $idKamar = $this->input->post(`kamarId`);
-            $res = $this->Crud_model->update_data(['kamarId' => $idKamar], $params, 'master_kamar');
+			$whereUpdate = array('kamarId' ,$idKamar);
+            $res = $this->Crud_model->update_data($whereUpdate, $params, 'master_kamar');
         }
 
         return $this->response->json($res);
     }
+
+	public function delete()
+	{
+		$idKamar = $this->input->get('kamarId');
+		$res = $this->Crud_model->hapus_data(['kamarId' => $idKamar], 'master_kamar');
+		$this->response->json($res);
+	}
 
 }
 

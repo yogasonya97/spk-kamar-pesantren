@@ -81,7 +81,7 @@
                             </div>
                             <div class="col-md-2 text-nowrap">
                                 <button onclick="updateKamarModel('${v.kamarId}')" type="button" class="btn btn-warning btn-sm mr-3"><i class="fa fa-edit"></i></button>
-                                <button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                <button onclick="deleteKamar('${v.kamarId}')" type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                             </div>
                         </div>
                     </div>
@@ -110,16 +110,29 @@
         $(`#modalActKamarId`).modal('show');
     }
 
-    const saveKamar = (e) => {
-        validationForm(e, async () => {
-            try {
-                let formData = $(`#formActKamarId`).serialize();
-                const { data } = await axios.post(`${parentUrl}/save`, formData);
-                return data;
-            } catch (error) {
-                console.log(error);
-            }
-        }, `formActKamarClass`)
+    const saveKamar = async(e) => {
+		try {
+			let formData = $(`#formActKamarId`).serialize();
+			const { data } = await axios.post(`${parentUrl}/save`, formData);
+			return data;
+		} catch (error) {
+			console.log(error);
+		}
+    }
+
+    const deleteKamar = async(kamarId) => {
+		try {
+			const { data } = await axios.delete(`${parentUrl}/delete`, {
+				params:{
+					kamarId
+				}
+			});
+			responCheck(data, () => {
+                loadListKamar();
+            })
+		} catch (error) {
+			console.log(error);
+		}
     }
 
     $(document).ready(function () {
@@ -130,10 +143,13 @@
         });
         $(`#formActKamarId`).submit(async (e) => {
             e.preventDefault();
-            const res = await saveKamar(e);
-            responCheck(res, () => {
-                loadListKamar();
-            })
+			validationForm(e, async () => {
+				const res = await saveKamar(e);
+				responCheck(res, () => {
+					loadListKamar();
+					$(`#modalActKamarId`).modal('hide');
+				});
+			}, `formActKamarClass`)
         });
     });
 </script>

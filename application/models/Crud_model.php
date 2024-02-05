@@ -42,7 +42,7 @@ class Crud_model extends CI_Model
         } else {
             $res = [
                 'responseCode' => 0,
-                'response' => 'Gagal menghapus data'
+                'response' => 'Gagal menghapus data atau data tidak ditemukan'
             ];
         }
 
@@ -51,6 +51,7 @@ class Crud_model extends CI_Model
  
     function update_data($where,$data,$table)
     {
+		// var_dump($where);
         $this->db->where($where);
         $this->db->update($table,$data);
         if ($this->db->affected_rows() > 0) {
@@ -61,7 +62,7 @@ class Crud_model extends CI_Model
         } else {
             $res = [
                 'responseCode' => 0,
-                'response' => 'Gagal merubah data'
+                'response' => 'Gagal merubah data atau data tidak berubah'
             ];
         }
 

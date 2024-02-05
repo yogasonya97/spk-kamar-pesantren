@@ -124,8 +124,10 @@
     }, callBackGagal = () => {
     }) => {
       if (responseCode == 1) {
+				alert(response);
         callBackSuccess();
       } else {
+				alert(response);
         callBackGagal();
       }
     };
