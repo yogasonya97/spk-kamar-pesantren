@@ -3,19 +3,69 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Crud_model extends CI_Model
 {
+    function get_data($select, $table, $where = [])
+    {
+        $this->db->select($select);
+        $this->db->from($table);
+        if ($where) {
+            $this->db->where($where);
+        }
+        return $this->db->get();
+    }
+    function input_data($data,$table)
+    {
+        $this->db->insert($table,$data);
+        if ($this->db->affected_rows() > 0) {
+            $res = [
+                'responseCode' => 1,
+                'response' => 'Berhasil menambahkan data'
+            ];
+        } else {
+            $res = [
+                'responseCode' => 0,
+                'response' => 'Gagal menambahkan data'
+            ];
+        }
 
-    function input_data($data,$table){
-        return $this->db->insert($table,$data);
+        return $res;
     }
 
-    function hapus_data($where,$table){
+    function hapus_data($where,$table)
+    {
         $this->db->where($where);
-        return $this->db->delete($table);
+        $this->db->delete($table);
+        if ($this->db->affected_rows() > 0) {
+            $res = [
+                'responseCode' => 1,
+                'response' => 'Berhasil menghapus data'
+            ];
+        } else {
+            $res = [
+                'responseCode' => 0,
+                'response' => 'Gagal menghapus data'
+            ];
+        }
+
+        return $res;
     }
  
-    function update_data($where,$data,$table){
+    function update_data($where,$data,$table)
+    {
         $this->db->where($where);
-        return $this->db->update($table,$data);
+        $this->db->update($table,$data);
+        if ($this->db->affected_rows() > 0) {
+            $res = [
+                'responseCode' => 1,
+                'response' => 'Berhasil merubah data'
+            ];
+        } else {
+            $res = [
+                'responseCode' => 0,
+                'response' => 'Gagal merubah data'
+            ];
+        }
+
+        return $res;
     } 
     
 }
