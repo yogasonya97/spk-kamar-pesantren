@@ -15,7 +15,6 @@ class Auth extends CI_Controller
 			return redirect(base_url() . 'login');
 		}
 		$getSession = $this->session->userdata;
-		var_dump($getSession['role']);
 		if($getSession['role'] == '1') {
 			return redirect(base_url() . 'admin');
 		} else if($getSession['role'] == '2') {

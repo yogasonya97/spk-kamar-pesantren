@@ -76,7 +76,7 @@ class Kamar extends CI_Controller {
         if ($typeForm == 'add') {
             $res = $this->Crud_model->input_data($params, 'master_kamar');
         } else {
-			$whereUpdate = array('kamarId' ,$idKamar);
+			$whereUpdate = ['kamarId' => $idKamar];
             $res = $this->Crud_model->update_data($whereUpdate, $params, 'master_kamar');
         }
 
