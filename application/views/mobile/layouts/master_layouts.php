@@ -59,17 +59,16 @@
     href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&amp;family=Raleway:wght@300;400;500&amp;display=swap"
     rel="stylesheet" />
 
-  <script src="<?= base_url() ?>assets/mobile/assets/js/jquery.js"></script>
-  <script src="<?= base_url() ?>assets/mobile/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- <script src="<?= base_url() ?>assets/mobile/assets/vendor/swiper/swiper-bundle.min.js"></script> -->
-  <script src="<?= base_url() ?>assets/mobile/assets/js/dz.carousel.js"></script>
-  <script src="<?= base_url() ?>assets/mobile/assets/js/settings.js"></script>
-  <script src="<?= base_url() ?>assets/mobile/assets/js/custom.js"></script>
-  <script src="<?= base_url() ?>assets/mobile/index.js"></script>
-  <script src="<?= base_url() ?>assets/mobile/assets/js/axios.min.js"></script>
+ 
 </head>
 
 <body>
+<script src="<?= base_url() ?>assets/mobile/assets/js/jquery.js"></script>
+  <script src="<?= base_url() ?>assets/mobile/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- <script src="<?= base_url() ?>assets/mobile/assets/vendor/swiper/swiper-bundle.min.js"></script> -->
+  <script src="<?= base_url() ?>assets/mobile/assets/js/dz.carousel.js"></script>
+ 
+  <script src="<?= base_url() ?>assets/mobile/assets/js/axios.min.js"></script>
   <script>
     const validationForm = (e, callback, setForm = null) => {
       let forms = document.getElementsByClassName(setForm != null ? setForm : `needs-validation`);
@@ -171,7 +170,7 @@
     <!-- Nav Floting End -->
 
     <!-- Modal -->
-    <div class="modal fade dz-pwa-modal" id="pwaModal" tabindex="-1" aria-labelledby="pwaModalLabel" aria-hidden="true">
+    <!-- <div class="modal fade dz-pwa-modal" id="pwaModal" tabindex="-1" aria-labelledby="pwaModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <a href="javascript:void(0);" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
@@ -193,13 +192,15 @@
           </button>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- PWA End -->
   </div>
   <!--**********************************
     Scripts
 ***********************************-->
-
+  <script src="<?= base_url() ?>assets/mobile/assets/js/settings.js"></script>
+  <script src="<?= base_url() ?>assets/mobile/assets/js/custom.js"></script>
+  <script src="<?= base_url() ?>assets/mobile/index.js"></script>
 </body>
 
 </html>

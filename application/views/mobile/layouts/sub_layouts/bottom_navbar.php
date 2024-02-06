@@ -1,6 +1,6 @@
 <div class="menubar-area footer-fixed">
           <div class="toolbar-inner menubar-nav">
-            <a href="index.html" class="nav-link active">
+            <a href="/" class="nav-link active">
               <i class="fi fi-rr-home"></i>
             </a>
             <a href="wishlist.html" class="nav-link">
