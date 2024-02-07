@@ -67,6 +67,9 @@ $route['admin/master/kamar/delete'] = 'Admin/Master/Kamar/delete';
 
 
 $route['admin/master/kriteria'] = 'Admin/Master/Kriteria/index';
+$route['admin/master/kriteria/get-list-data-kriteria'] = 'Admin/Master/Kriteria/getListDataKriteria';
+$route['admin/master/kriteria/save'] = 'Admin/Master/Kriteria/save';
+$route['admin/master/kriteria/delete'] = 'Admin/Master/Kriteria/delete';
 
 
 

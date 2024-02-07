@@ -66,7 +66,7 @@
 <body>
     <div class="page-wrapper">
         <!-- Preloader -->
-		<?php include(APPPATH . 'views/mobile/layouts/loading_screen.php') ?>
+        <?php include(APPPATH . 'views/mobile/layouts/loading_screen.php') ?>
         <!-- Preloader end-->
 
         <!-- Main Content Start  -->
@@ -87,31 +87,73 @@
                             <div class="mb-4">
                                 <label class="form-label" for="name">Nama Lengkap</label>
                                 <div class="input-group input-mini input-lg">
-                                    <input type="name" id="name" name="fullName" class="form-control" placeholder="Masukkan Nama Lengkap" required>
+                                    <input type="name" id="name" name="fullName" class="form-control"
+                                        placeholder="Masukkan Nama Lengkap" required>
                                 </div>
                             </div>
                             <div class="mb-4">
                                 <label class="form-label" for="email">Email</label>
                                 <div class="input-group input-mini input-lg">
-                                    <input type="email" id="email" name="email" class="form-control" placeholder="info@examplegmail.com" required>
+                                    <input type="email" id="email" name="email" class="form-control"
+                                        placeholder="info@examplegmail.com" required>
                                 </div>
                             </div>
                             <div class="m-b30">
                                 <label class="form-label" for="password">Password</label>
                                 <div class="input-group input-mini input-lg">
-                                    <input type="password" id="password" name="password" class="form-control dz-password" placeholder="Masukkan Password" required>
-                                    <span class="input-group-text show-pass"> 
+                                    <input type="password" id="password" name="password"
+                                        class="form-control dz-password" placeholder="Masukkan Password" required>
+                                    <span class="input-group-text show-pass">
                                         <i class="icon feather icon-eye-off eye-close"></i>
                                         <i class="icon feather icon-eye eye-open"></i>
                                     </span>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-thin btn-lg w-100 btn-primary rounded-xl">Buat Akun</button>
+                            <button type="submit" class="btn btn-thin btn-lg w-100 btn-primary rounded-xl">Buat
+                                Akun</button>
                         </form>
                         <div class="text-center account-footer">
                             <p class="text-light">Sudah punya akun?</p>
                             <a href="/login" class="btn btn-secondary btn-lg btn-thin rounded-xl w-100">Masuk</a>
                         </div>
+                    </div>
+                </div>
+                <div id="toastSuccess"
+                    class="dzToastArea toast style-1 toast-success dz-toast position-fixed start-50 translate-middle-x"
+                    style="z-index: 9999; bottom: 45px;" role="alert" aria-live="polite" aria-atomic="true">
+                    <div class="toast-body">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                            <path fill="#ffffff"
+                                d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" />
+                        </svg>
+                        <div class="toast-content ms-3 me-2">
+                            <strong id="toastSuccessMsg"></strong>
+                            <small class="d-block">Sukses</small>
+                        </div>
+                        <button class="btn btn-close position-absolute p-1" type="button" data-bs-dismiss="toast"
+                            aria-label="Close">
+                            <i class="icon feather icon-x"></i>
+                        </button>
+                    </div>
+                </div>
+                <div id="toastDanger"
+                    class="dzToastArea toast style-1 toast-danger dz-toast position-fixed start-50 translate-middle-x"
+                    style="z-index: 9999; bottom: 45px;" role="alert" aria-live="polite" aria-atomic="true">
+                    <div class="toast-body">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                            <path fill="#ffffff"
+                                d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24V264c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z" />
+                        </svg>
+                        <div class="toast-content ms-3 me-2">
+                            <strong id="toastDangerMsg"></strong>
+                            <small class="d-block">Gagal</small>
+                        </div>
+                        <button class="btn btn-close position-absolute p-1" type="button" data-bs-dismiss="toast"
+                            aria-label="Close">
+                            <i class="icon feather icon-x"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -131,6 +173,26 @@
     <script src="<?= base_url() ?>assets/mobile/index.js"></script>
     <script src="<?= base_url() ?>assets/mobile/assets/js/axios.min.js"></script>
     <script>
+        const toast = {
+			success: (msg) => {
+				const myToastEl = document.getElementById('toastSuccess')
+				const myToast = bootstrap.Toast.getOrCreateInstance(myToastEl)
+				const toastMsg = document.getElementById('toastSuccessMsg')
+
+				toastMsg.innerHTML = msg
+
+				myToast.show()
+			},
+			danger: (msg) => {
+				const myToastEl = document.getElementById('toastDanger')
+				const myToast = bootstrap.Toast.getOrCreateInstance(myToastEl)
+				const toastMsg = document.getElementById('toastDangerMsg')
+
+				toastMsg.innerHTML = msg
+
+				myToast.show()
+			}
+		}
         $(document).ready(function () {
             $(`#formRegisterId`).submit(async (e) => {
                 e.preventDefault();
@@ -138,12 +200,12 @@
                     let formData = $(`#formRegisterId`).serialize();
                     const { data } = await axios.post(`/auth/register-proses`, formData);
                     if (data.responseCode != 1) {
-                        return alert(data.response);
+                        return toast.danger(data.response);
                     }
 
-                    alert(data.response);
+                    toast.success(data.response);
                     location.href = '/login';
-                  
+
                 } catch (error) {
                     console.log(error);
                 }
