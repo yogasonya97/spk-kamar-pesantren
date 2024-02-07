@@ -50,7 +50,7 @@
 	const setList = (data) => {
 		const html = data.map((v) => {
 			return ` 
-				<div class="dz-categories-bx mb-3">
+				<div class="dz-categories-bx mb-3 align-items-center">
 					<div class="icon-bx">
 						<a href="products.html">
 							<svg enable-background="new 0 0 48 48" height="24" viewBox="0 0 48 48" width="24"
@@ -70,8 +70,8 @@
 							</svg>
 						</a>
 					</div>
-					<div class="dz-content">
-						<div class="row gap-2 gap-md-0">
+					<div class="dz-content w-100">
+						<div class="row gap-2 justify-content-between gap-md-0">
 							<div class="col-md-9">
 								<h6 class="title fw-bold list-item">
 									${v.namaKamar} (${v.aliasKamar})

@@ -88,7 +88,7 @@
 			<!-- Header -->
 
 			<!-- Main Content Start -->
-			<main class="page-content bg-white p-b60 h-100">
+			<main class="page-content bg-white h-100">
 				<div class="container">
 					<?= $_content; ?>
 
@@ -98,7 +98,9 @@
 			<!-- Main Content End -->
 
 			<!-- Menubar -->
-			<?php include(APPPATH . 'views/mobile/layouts/sub_layouts/bottom_navbar.php') ?>
+			<?php if ($this->session->userdata('role') == '2') : ?>
+				<?php include(APPPATH . 'views/mobile/layouts/sub_layouts/bottom_navbar.php') ?>
+			<?php endif; ?>
 			<!-- Menubar -->
 		</div>
 		<!-- Nav Floting End -->
