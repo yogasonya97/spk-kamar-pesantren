@@ -66,13 +66,7 @@
 <body>
     <div class="page-wrapper">
         <!-- Preloader -->
-        <div id="preloader">
-            <div class="loader">
-                <div class="spinner-border text-primary" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                </div>
-            </div>
-        </div>
+		<?php include(APPPATH . 'views/mobile/layouts/loading_screen.php') ?>
         <!-- Preloader end-->
 
         <!-- Main Content Start  -->
