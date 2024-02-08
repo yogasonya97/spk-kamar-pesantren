@@ -16,17 +16,17 @@
 	<meta name="keywords"
 		content="android, ios, mobile, mobile template, mobile app, ui kit, dark layout, app, delivery, ecommerce, material design, mobile, mobile web, order, phonegap, pwa, store, web app, Ombe, coffee app, coffee template, coffee shop, mobile UI, coffee design, app template, responsive design, coffee showcase, style app, trendy app, modern UI, technology, User-Friendly Interface, Coffee Shop App, PWA (Progressive Web App), Mobile Ordering, Coffee Experience, Digital Menu, Innovative Technology, App Development, Coffee Experience, cafe, bootatrap, Bootstrap Framework, UI/UX Design, Coffee Shop Technology, Online Presence, Coffee Shop Website, Cafe Template, Mobile App Design, Web Application, Digital Presence, Bootstrap, caffine" />
 
-	<meta name="description" content="" />
+	<meta name="description" content="SPK Penilaian Kamar Yayasan Al-Fahd" />
 
-	<meta property="og:title" content="" />
-	<meta property="og:description" content="" />
+	<meta property="og:title" content="SPK Penilaian Kamar Yayasan Al-Fahd" />
+	<meta property="og:description" content="SPK Penilaian Kamar Yayasan Al-Fahd" />
 
 	<meta property="og:image" content="../../xhtml/social-image.png" />
 
 	<meta name="format-detection" content="telephone=no" />
 
-	<meta name="twitter:title" content="" />
-	<meta name="twitter:description" content="" />
+	<meta name="twitter:title" content="SPK Penilaian Kamar Yayasan Al-Fahd" />
+	<meta name="twitter:description" content="SPK Penilaian Kamar Yayasan Al-Fahd" />
 
 	<meta name="twitter:image" content="../../xhtml/social-image.png" />
 	<meta name="twitter:card" content="summary_large_image" />
