@@ -17,7 +17,6 @@ class Kriteria extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-
 	public function __construct()
 	{
 		parent::__construct();
@@ -30,7 +29,7 @@ class Kriteria extends CI_Controller {
 		if ($this->session->userdata('validate') ==true) {
 			$this->id_user = $this->session->userdata('user_id');
 		}
-
+		$this->load->model('MasterKriteria_model');
 	}
 
 	// PAGE
@@ -38,14 +37,14 @@ class Kriteria extends CI_Controller {
 	{
         $data['title'] = 'Data Kriteria';
         $data['subtitle'] = 'Daftar Seluruh Kriteria';
-        
+		$data['total'] = '';
 		$this->tp->mobile('mobile/admin/master/kriteria/index', $data);
         $this->load->view('mobile/admin/master/kriteria/modalActKriteria',$data);
 	}
 
     public function getListDataKriteria()
     {
-        $data = $this->Crud_model->get_data('*', 'master_kriteria')->result();
+        $data = $this->MasterKriteria_model->getListDataKriteria()->result();
         $this->response->json($data);
     }
 
@@ -53,18 +52,15 @@ class Kriteria extends CI_Controller {
     {
         $typeForm = $this->input->post('typeForm');
 		$idKriteria = $this->input->post('kriteriaId');
-		$checkDuplicate = $this->db->get_where('master_kriteria',[
+
+		$checkDuplicate = $this->MasterKriteria_model->getDetailKriteriaByWhere([
 			'kodeKriteria' => $this->input->post('kodeKriteria')
 		]);
 
 		$res = $checkDuplicate->row();
 
 		if ($typeForm == 'add' && $res) {
-			$res = [
-				'responseCode' => 0,
-				'response' => 'Data Sudah Ada'
-			];
-			return $this->response->json($res);
+			return $this->response->json(failResponse('Data Sudah Ada'));
 		}
 
         $params = [

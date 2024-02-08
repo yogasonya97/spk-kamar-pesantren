@@ -17,7 +17,6 @@ class Kamar extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-
 	public function __construct()
 	{
 		parent::__construct();
@@ -30,7 +29,8 @@ class Kamar extends CI_Controller {
 		if ($this->session->userdata('validate') ==true) {
 			$this->id_user = $this->session->userdata('user_id');
 		}
-
+		$this->load->model('MasterKamar_model');
+		$this->load->model('Users_model');
 	}
 
 	// PAGE
@@ -38,14 +38,15 @@ class Kamar extends CI_Controller {
 	{
         $data['title'] = 'Data Kamar';
         $data['subtitle'] = 'Daftar Seluruh Kamar';
-        
+        // $data['totalClient'] = $this->Users_model->getTotalClient();
+		// dd($data);
 		$this->tp->mobile('mobile/admin/master/kamar/index', $data);
         $this->load->view('mobile/admin/master/kamar/modalActKamar',$data);
 	}
 
     public function getListDataKamar()
     {
-        $data = $this->Crud_model->get_data('*', 'master_kamar')->result();
+        $data = $this->MasterKamar_model->getListDataKamar()->result();
         $this->response->json($data);
     }
 
@@ -53,18 +54,14 @@ class Kamar extends CI_Controller {
     {
         $typeForm = $this->input->post('typeForm');
 		$idKamar = $this->input->post('kamarId');
-		$checkDuplicate = $this->db->get_where('master_kamar',[
+		$checkDuplicate = $this->MasterKamar_model->getDetailKamarByWhere([
 			'kodeKamar' => $this->input->post('kodeKamar')
 		]);
 
 		$res = $checkDuplicate->row();
 
 		if ($typeForm == 'add' && $res) {
-			$res = [
-				'responseCode' => 0,
-				'response' => 'Data Sudah Ada'
-			];
-			return $this->response->json($res);
+			return $this->response->json(failResponse('Data Sudah Ada'));
 		}
 
         $params = [
