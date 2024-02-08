@@ -195,7 +195,7 @@
             </div>
           </div>
           <div class="app-info">
-            <h6 class="name">Penilaian Kamar Pesantren Al-Fahd</h6>
+            <h6 class="name">Yayasan Islam Al-Fahd</h6>
             <span class="ver-info">App Version 1.0.0</span>
           </div>
         </div>
