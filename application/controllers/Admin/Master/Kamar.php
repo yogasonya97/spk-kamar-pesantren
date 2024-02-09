@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+// use application\Services\My_service;
 class Kamar extends CI_Controller {
 
 	/**
@@ -17,6 +18,7 @@ class Kamar extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+	private $serviceTrxPenilaianKamar;
 	public function __construct()
 	{
 		parent::__construct();
@@ -30,6 +32,7 @@ class Kamar extends CI_Controller {
 			$this->id_user = $this->session->userdata('user_id');
 		}
 		$this->load->model('MasterKamar_model');
+		$this->load->model('TrxPenilaianKamar_model');
 		$this->load->model('Users_model');
 	}
 
@@ -38,7 +41,7 @@ class Kamar extends CI_Controller {
 	{
         $data['title'] = 'Data Kamar';
         $data['subtitle'] = 'Daftar Seluruh Kamar';
-        // $data['totalClient'] = $this->Users_model->getTotalClient();
+       	// $data['rank'] = $this->serviceTrxPenilaianKamar->getRankKamarPerMonth();
 		// dd($data);
 		$this->tp->mobile('mobile/admin/master/kamar/index', $data);
         $this->load->view('mobile/admin/master/kamar/modalActKamar',$data);
@@ -55,7 +58,7 @@ class Kamar extends CI_Controller {
         $typeForm = $this->input->post('typeForm');
 		$idKamar = $this->input->post('kamarId');
 		$checkDuplicate = $this->MasterKamar_model->getDetailKamarByWhere([
-			'kodeKamar' => $this->input->post('kodeKamar')
+			'namaKamar' => $this->input->post('namaKamar')
 		]);
 
 		$res = $checkDuplicate->row();
@@ -65,9 +68,10 @@ class Kamar extends CI_Controller {
 		}
 
         $params = [
-            'kodeKamar' => $this->input->post('kodeKamar'),
+            'namaAsrama' => $this->input->post('namaAsrama'),
             'namaKamar' => $this->input->post('namaKamar'),
-            'aliasKamar' => $this->input->post('aliasKamar')
+            'aliasKamar' => $this->input->post('aliasKamar'),
+            'namaPembina' => $this->input->post('namaPembina')
         ];
 
         if ($typeForm == 'add') {

@@ -76,7 +76,7 @@
 								<h6 class="title fw-bold list-item">
 									${v.namaKamar} (${v.aliasKamar})
 								</h6>
-								<span class="menus text-primary list-item">${v.kodeKamar}</span>
+								<span class="menus text-primary list-item">${v.namaAsrama}</span>
 							</div>
 							<div class="col-md-3">
 								<div class="d-flex gap-2">
