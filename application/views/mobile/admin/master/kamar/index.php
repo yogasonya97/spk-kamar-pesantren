@@ -5,8 +5,10 @@
 
 <div class="row">
 	<div class="col-md-12">
-		<button onclick="addKamarModal()" class="btn btn-primary btn-sm float-end mb-4"><i class="fa-solid fa-add"></i>
-			Kamar</button>
+		<?php if ($buttonAct['add']): ?>
+			<button onclick="addKamarModal()" class="btn btn-primary btn-sm float-end mb-4"><i class="fa-solid fa-add"></i>
+				Kamar</button>
+		<?php endif; ?>
 	</div>
 	<div class="col-md-12">
 		<div class="search-box">
@@ -31,6 +33,9 @@
 	let parentUrl = `/admin/master/kamar`;
 	let typeForm = '';
 	let listKamarG = [];
+
+	const isEditAct = `<?= $buttonAct['edit'] ?>`;
+	const isDeleteAct = `<?= $buttonAct['delete'] ?>`;
 
 	// Fungsi pencarian
 	function filterFunction(e) {
@@ -78,7 +83,7 @@
 								</h6>
 								<span class="menus text-primary list-item">${v.kodeKamar}</span>
 							</div>
-							<div class="col-md-3">
+							<div class="col-md-3 ${isEditAct && isDeleteAct ? '' : 'd-none'}">
 								<div class="d-flex gap-2">
 									<button onclick="updateKamarModel('${v.kamarId}')" type="button" class="btn btn-warning btn-sm mr-3"><i class="fa fa-edit"></i></button>
 									<button onclick="deleteKamar('${v.kamarId}')" type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>

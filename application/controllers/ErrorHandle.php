@@ -22,6 +22,10 @@ class ErrorHandle extends CI_Controller {
 	{
 		$this->load->view('error_403.php');
 	}
+	public function onProgressPage()
+	{
+		$this->load->view('on_progress_page.php');
+	}
 	
 }
 

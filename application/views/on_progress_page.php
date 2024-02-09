@@ -72,130 +72,52 @@
 	<script src="<?= base_url() ?>assets/mobile/assets/js/axios.min.js"></script>
 
 	<div class="page-wrapper">
-		<!-- Preloader -->		
+
+		<!-- Preloader -->
 		<?php include(APPPATH . 'views/mobile/layouts/loading_screen.php') ?>
 		<!-- Preloader end-->
 
-
-		<!-- Sidebar -->
-		<?php include(APPPATH . 'views/mobile/layouts/sub_layouts/sidebar.php') ?>
-		<!-- Sidebar End -->
-
-		<!-- Nav Floting Start -->
-		<div class="dz-nav-floting">
-			<!-- Header -->
-			<?php include(APPPATH . 'views/mobile/layouts/sub_layouts/header.php') ?>
-			<!-- Header -->
-
-			<!-- Main Content Start -->
-			<main class="page-content bg-white <?php if ($this->session->userdata('role') == '2') : ?>h-100<?php endif; ?>">
-				<div class="container">
-					<?= $_content; ?>
-
+		<!-- Header -->
+		<header class="header header-fixed border-bottom onepage">
+			<div class="header-content">
+				<div class="left-content">
+					<a href="<?= base_url() ?>javascript:void(0);" class="back-btn">
+						<i class="feather icon-arrow-left"></i>
+					</a>
 				</div>
-			</main>
+				<div class="mid-content">
+					<h4 class="title">Halama tidak ditemukan</h4>
+				</div>
+				<div class="right-content"></div>
+			</div>
+		</header>
+		<!-- Header -->
 
-			<!-- Main Content End -->
-
-			<!-- Menubar -->
-			<?php if ($this->session->userdata('role') == '2') : ?>
-				<?php include(APPPATH . 'views/mobile/layouts/sub_layouts/bottom_navbar.php') ?>
-			<?php endif; ?>
-			<!-- Menubar -->
-		</div>
-		<!-- Nav Floting End -->
+		<!-- Page Content Start -->
+		<main class="page-content space-top">
+			<div class="container fixed-full-area">
+				<div class="error-page">
+					<div class="icon-bx">
+						<img src="assets/images/error2.svg" alt="">
+					</div>
+					<div class="clearfix">
+						<h2 class="title text-primary">Maaf</h2>
+						<p>Mohon untuk kesabarannya, Halaman masih dalam tahap pengerjaan</p>
+					</div>
+				</div>
+				<div class="error-img">
+					<img src="<?= base_url() ?>assets/mobile/assets/images/error.png" alt="">
+				</div>
+			</div>
+		</main>
+		<!-- Page Content End -->
 	</div>
 	<!--**********************************
 		Scripts
 ***********************************-->
 	<script src="<?= base_url() ?>assets/mobile/assets/js/settings.js"></script>
 	<script src="<?= base_url() ?>assets/mobile/assets/js/custom.js"></script>
-	<script src="<?= base_url() ?>assets/mobile/index.js"></script>
-	<script>
-
-		const validationForm = (e, callback, setForm = null) => {
-			let forms = document.getElementsByClassName(setForm != null ? setForm : `needs-validation`);
-			let validation = Array.prototype.filter.call(forms, function (form) {
-				if (form.checkValidity() === false) {
-					e.stopPropagation();
-					form.classList.add("was-validated");
-					let formRequired = $(`.form-control:invalid`);
-					let inputId = formRequired[0].id;
-					scrollToSelector(`#` + inputId);
-				} else {
-					callback();
-				}
-			});
-		};
-
-		const scrollToSelector = (selector) => {
-			$("html, body").animate({
-				scrollTop: $(selector).offset().top - 200
-			}, "slow", () => {
-				$(selector).focus();
-			});
-		};
-
-		// Untuk Clear Validation Merah
-		const clearValidationForm = (setForm = null) => {
-			let forms = document.getElementsByClassName(setForm != null ? setForm : `needs-validation`);
-			let validation = Array.prototype.filter.call(forms, function (form) {
-				form.classList.remove("was-validated");
-			});
-		};
-
-		// Untuk Reset Form
-		const clearForm = (selectorFormId, setForm = null) => {
-			let idForm = document.getElementById(selectorFormId);
-			idForm.reset();
-			clearValidationForm(setForm);
-		};
-
-		// Untuk Eksekusi Tutup Modal
-		const closeModal = (selectorModalId, callback) => {
-			$(`#${selectorModalId}`).on("hidden.bs.modal", function () {
-				callback();
-			});
-		};
-
-		// HandleResponse
-		const responCheck = ({
-			responseCode,
-			response
-		}, callBackSuccess = () => {
-		}, callBackGagal = () => {
-		}) => {
-			if (responseCode == 1) {
-				toast.success(response);
-				callBackSuccess();
-			} else {
-				toast.danger(response);
-				callBackGagal();
-			}
-		};
-
-		const toast = {
-			success: (msg) => {
-				const myToastEl = document.getElementById('toastSuccess')
-				const myToast = bootstrap.Toast.getOrCreateInstance(myToastEl)
-				const toastMsg = document.getElementById('toastSuccessMsg')
-
-				toastMsg.innerHTML = msg
-
-				myToast.show()
-			},
-			danger: (msg) => {
-				const myToastEl = document.getElementById('toastDanger')
-				const myToast = bootstrap.Toast.getOrCreateInstance(myToastEl)
-				const toastMsg = document.getElementById('toastDangerMsg')
-
-				toastMsg.innerHTML = msg
-
-				myToast.show()
-			}
-		}
-
-	</script>
+	<script src="<?= base_url() ?>assets/mobile/index.js"></script>	
 </body>
 
 </html>
