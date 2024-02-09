@@ -76,6 +76,6 @@ $route['admin/master/kriteria/delete'] = 'Admin/Master/Kriteria/delete';
 $route['client'] = 'Clients/Dashboard/index';
 
 
-$route['404_override'] = '';
+$route['404_override'] = 'ErrorHandle/onProgressPage';
 $route['error-403_override'] = 'ErrorHandle/forbiddenError403';
 $route['translate_uri_dashes'] = FALSE;

@@ -25,10 +25,7 @@ class Kamar extends CI_Controller {
 
 		if (!$this->session->userdata('validate') && $this->session->userdata('role') != '1') {
 			redirect(base_url() . 'login');
-		} else if ($this->session->userdata('validate') && $this->session->userdata('role') != '1'){
-			redirect(base_url() . 'error-403_override');
-		}
-		if ($this->session->userdata('validate') ==true) {
+		} else if ($this->session->userdata('validate') ==true) {
 			$this->id_user = $this->session->userdata('user_id');
 		}
 		$this->load->model('MasterKamar_model');
@@ -41,7 +38,12 @@ class Kamar extends CI_Controller {
 	{
         $data['title'] = 'Data Kamar';
         $data['subtitle'] = 'Daftar Seluruh Kamar';
-       	// $data['rank'] = $this->serviceTrxPenilaianKamar->getRankKamarPerMonth();
+        $data['buttonAct'] = [
+			'add' => $this->session->userdata('role') == '1',
+			'edit' => $this->session->userdata('role') == '1',
+			'delete' => $this->session->userdata('role') == '1'
+		];
+        // $data['totalClient'] = $this->Users_model->getTotalClient();
 		// dd($data);
 		$this->tp->mobile('mobile/admin/master/kamar/index', $data);
         $this->load->view('mobile/admin/master/kamar/modalActKamar',$data);
