@@ -8,7 +8,8 @@ if (!function_exists('collect')) {
     }
 }
 
-class Laravel_Collection {
+class Laravel_Collection
+{
     protected $items;
 
     public function __construct($items)
@@ -19,5 +20,57 @@ class Laravel_Collection {
     public function map($callback)
     {
         return array_map($callback, $this->items);
+    }
+
+    public function reduce($callback, $initial = null)
+    {
+        return array_reduce($this->items, $callback, $initial);
+    }
+    public function where($key, $operator, $value = null)
+    {
+        if (func_num_args() === 2) {
+            $value = $operator;
+            $operator = '=';
+        }
+
+        $result = [];
+        foreach ($this->items as $item) {
+            switch ($operator) {
+                case '=':
+                    if ($item[$key] == $value) {
+                        $result[] = $item;
+                    }
+                    break;
+                case '!=':
+                    if ($item[$key] != $value) {
+                        $result[] = $item;
+                    }
+                    break;
+                case '<':
+                    if ($item[$key] < $value) {
+                        $result[] = $item;
+                    }
+                    break;
+                case '<=':
+                    if ($item[$key] <= $value) {
+                        $result[] = $item;
+                    }
+                    break;
+                case '>':
+                    if ($item[$key] > $value) {
+                        $result[] = $item;
+                    }
+                    break;
+                case '>=':
+                    if ($item[$key] >= $value) {
+                        $result[] = $item;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        return collect($result);
     }
 }

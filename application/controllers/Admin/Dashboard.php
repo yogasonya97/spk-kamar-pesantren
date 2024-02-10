@@ -32,7 +32,6 @@ class Dashboard extends CI_Controller {
 			$this->id_user = $this->session->userdata('user_id');
 		}
 
-		$this->load->model('crud_model');
 	}
 
 	// PAGE
@@ -40,8 +39,16 @@ class Dashboard extends CI_Controller {
 	{
 		$data['title'] = 'Assalammualaikum, wr,wb';
 		$data['subtitle'] = $this->session->userdata('nama');
-		// $data['modalSection']
+		$data['totalClient'] = $this->Users_model->getTotalClient();
+		$data['totalKamar'] = $this->MasterKamar_model->getTotalKamar();
+		$data['bulanIni'] = konversiBulan(date('F')).' '.date('Y');
 		$this->tp->mobile('mobile/admin/index', $data);
+	}
+
+	public function getRankKamarPerMonth() 
+	{
+		$data = $this->TrxPenilaiankamar_model->getRankKamarByYear();
+		return $this->response->json($data);
 	}
 
 

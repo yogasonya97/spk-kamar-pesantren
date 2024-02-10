@@ -63,14 +63,17 @@
 </head>
 
 <body>
-
+	<?php $buttonActPermission = json_encode($this->session->userdata('buttonActPermission')); ?>
 	<script src="<?= base_url() ?>assets/mobile/assets/js/jquery.js"></script>
 	<script src="<?= base_url() ?>assets/mobile/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<!-- <script src="<?= base_url() ?>assets/mobile/assets/vendor/swiper/swiper-bundle.min.js"></script> -->
 	<script src="<?= base_url() ?>assets/mobile/assets/js/dz.carousel.js"></script>
 
 	<script src="<?= base_url() ?>assets/mobile/assets/js/axios.min.js"></script>
-
+	<script>
+		const btnActPermit = JSON.parse('<?= $buttonActPermission; ?>');
+	
+	</script>
 	<div class="page-wrapper">
 		<!-- Preloader -->		
 		<?php include(APPPATH . 'views/mobile/layouts/loading_screen.php') ?>
@@ -112,6 +115,44 @@
 	<script src="<?= base_url() ?>assets/mobile/assets/js/custom.js"></script>
 	<script src="<?= base_url() ?>assets/mobile/index.js"></script>
 	<script>
+		function cariRankTerbesar(data) {
+			// Urutkan array berdasarkan jumlahNilai secara menurun
+			data.sort((a, b) => b.jumlahNilai - a.jumlahNilai);
+
+			// Ambil objek pertama (dengan nilai terbesar)
+			const rankTerbesar = data[0];
+			
+			return rankTerbesar;
+		}
+
+		function urutkanRankTerbesar(data) {
+			// Urutkan array berdasarkan jumlahNilai secara menurun
+			data.sort((a, b) => b.jumlahNilai - a.jumlahNilai);
+			
+			return data;
+		}
+		
+		const showPerimitedCrudBtn = (type,sts) => {
+			if (sts) {
+				$(`.${type}`).removeClass('d-none');
+				return;
+			}
+			$(`.${type}`).addClass('d-none');
+			return;
+		}
+
+		const validationBtnPermitedCrud = () => {
+			$.each(btnActPermit, (i, v) => {
+				showPerimitedCrudBtn(i, v);
+			})
+		}
+
+		$(document).ready(function() {
+			setTimeout(() => {
+				validationBtnPermitedCrud();
+			}, 2000);
+		});
+
 
 		const validationForm = (e, callback, setForm = null) => {
 			let forms = document.getElementsByClassName(setForm != null ? setForm : `needs-validation`);

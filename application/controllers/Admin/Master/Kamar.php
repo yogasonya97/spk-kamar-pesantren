@@ -38,11 +38,11 @@ class Kamar extends CI_Controller {
 	{
         $data['title'] = 'Data Kamar';
         $data['subtitle'] = 'Daftar Seluruh Kamar';
-        $data['buttonAct'] = [
-			'add' => $this->session->userdata('role') == '1',
-			'edit' => $this->session->userdata('role') == '1',
-			'delete' => $this->session->userdata('role') == '1'
-		];
+        // $data['buttonAct'] = [
+		// 	'add' => $this->session->userdata('role') == '1',
+		// 	'edit' => $this->session->userdata('role') == '1',
+		// 	'delete' => $this->session->userdata('role') == '1'
+		// ];
         // $data['totalClient'] = $this->Users_model->getTotalClient();
 		// dd($data);
 		$this->tp->mobile('mobile/admin/master/kamar/index', $data);

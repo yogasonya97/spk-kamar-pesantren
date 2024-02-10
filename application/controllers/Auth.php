@@ -59,6 +59,11 @@ class Auth extends CI_Controller
 			'email' => $email,
 			'nama' => $result->fullName,
 			'role' => $result->levelUser,
+			'buttonActPermission' => [
+				'add' => $result->levelUser == '1',
+				'edit' => $result->levelUser == '1',
+				'delete' => $result->levelUser == '1'
+			],
 			'validate' => true
 		]);
 

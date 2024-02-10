@@ -60,6 +60,7 @@ $route['auth/register-proses'] = 'Auth/registerProses';
 
 
 $route['admin'] = 'Admin/Dashboard/index';
+$route['admin/get-rank-kamar-per-month'] = 'Admin/Dashboard/getRankKamarPerMonth';
 $route['admin/master/kamar'] = 'Admin/Master/Kamar/index';
 $route['admin/master/kamar/get-list-data-kamar'] = 'Admin/Master/Kamar/getListDataKamar';
 $route['admin/master/kamar/save'] = 'Admin/Master/Kamar/save';

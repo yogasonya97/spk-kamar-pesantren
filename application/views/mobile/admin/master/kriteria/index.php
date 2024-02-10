@@ -5,7 +5,7 @@
 
 <div class="row">
 	<div class="col-md-12">
-		<button onclick="addKriteriaModal()" class="btn btn-primary btn-sm float-end mb-4"><i class="fa-solid fa-add"></i>
+		<button onclick="addKriteriaModal()" class="btn btn-primary btn-sm float-end mb-4 add"><i class="fa-solid fa-add"></i>
 			Kriteria</button>
 	</div>
 	<div class="col-md-12">
@@ -80,8 +80,8 @@
 							</div>
 							<div class="col-md-3">
 								<div class="d-flex gap-2">
-									<button onclick="updateKriteriaModel('${v.kriteriaId}')" type="button" class="btn btn-warning btn-sm mr-3"><i class="fa fa-edit"></i></button>
-									<button onclick="deleteKriteria('${v.kriteriaId}')" type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+									<button onclick="updateKriteriaModel('${v.kriteriaId}')" type="button" class="btn btn-warning btn-sm mr-3 edit"><i class="fa fa-edit"></i></button>
+									<button onclick="deleteKriteria('${v.kriteriaId}')" type="button" class="btn btn-danger btn-sm delete"><i class="fa fa-trash"></i></button>
 								</div>
 							</div>
 						</div>

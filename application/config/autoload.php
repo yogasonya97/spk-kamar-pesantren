@@ -89,7 +89,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url', 'file','form', 'vardumper','responsehandle','laravel');
+$autoload['helper'] = array('url', 'file','form', 'vardumper','responsehandle','laravel', 'formattgl');
 
 /*
 | -------------------------------------------------------------------
@@ -132,4 +132,4 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('Crud_model');
+$autoload['model'] = array('Users_model','Crud_model', 'MasterKamar_model', 'MasterKriteria_model', 'TrxPenilaiankamar_model');
