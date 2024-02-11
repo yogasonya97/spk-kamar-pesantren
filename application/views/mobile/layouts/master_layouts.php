@@ -150,7 +150,7 @@
 		$(document).ready(function() {
 			setTimeout(() => {
 				validationBtnPermitedCrud();
-			}, 2000);
+			}, 500);
 		});
 
 

@@ -75,6 +75,7 @@ $route['admin/master/kriteria/delete'] = 'Admin/Master/Kriteria/delete';
 
 
 $route['client'] = 'Clients/Dashboard/index';
+$route['client/get-rank-kamar-per-month'] = 'Clients/Dashboard/getRankKamarPerMonth';
 
 
 $route['404_override'] = 'ErrorHandle/onProgressPage';
