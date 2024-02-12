@@ -58,6 +58,7 @@ $route['register'] = 'Auth/register';
 $route['auth/login-proses'] = 'Auth/sign';
 $route['auth/register-proses'] = 'Auth/registerProses';
 
+$route['report/rank'] = 'Report/index';
 
 $route['admin'] = 'Admin/Dashboard/index';
 $route['admin/get-rank-kamar-per-month'] = 'Admin/Dashboard/getRankKamarPerMonth';

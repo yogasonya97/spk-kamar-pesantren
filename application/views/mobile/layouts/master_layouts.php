@@ -197,7 +197,7 @@
 			$(`#${selectorModalId}`).on("hidden.bs.modal", function () {
 				callback();
 			});
-		};
+		}
 
 		// HandleResponse
 		const responCheck = ({
