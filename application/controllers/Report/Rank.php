@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Report extends CI_Controller {
+class Rank extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -43,9 +43,12 @@ class Report extends CI_Controller {
 		$this->tp->mobile('mobile/report/index', $data);
 	}
 
-	public function getRankKamarPerMonth() 
+	public function filterPerMonth() 
 	{
-		$data = $this->TrxPenilaiankamar_model->getRankKamarByYear();
+		$filterBulan = $this->input->get('filterBulan');
+		$filterTahun = $this->input->get('filterTahun');
+
+		$data = $this->TrxPenilaiankamar_model->getRankKamarByMonthReport($filterBulan, $filterTahun);
 		return $this->response->json($data);
 	}
 

@@ -58,7 +58,9 @@ $route['register'] = 'Auth/register';
 $route['auth/login-proses'] = 'Auth/sign';
 $route['auth/register-proses'] = 'Auth/registerProses';
 
-$route['report/rank'] = 'Report/index';
+$route['report/rank/index'] = 'Report/Rank/index';
+$route['report/rank/filter-per-month'] = 'Report/Rank/filterPerMonth';
+$route['report/rank/filter-per-year'] = 'Report/Rank/filterPerYear';
 
 $route['admin'] = 'Admin/Dashboard/index';
 $route['admin/get-rank-kamar-per-month'] = 'Admin/Dashboard/getRankKamarPerMonth';

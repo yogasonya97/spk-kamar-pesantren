@@ -5,129 +5,170 @@
 
 <div class="row">
 	<div class="col-md-6">
-        <select class="form-control" name="" id="">
+		<select class="form-control" name="filterPer" id="filterPer">
 			<option value="">Pilih</option>
+			<option value="1">Per Bulan</option>
+			<option value="2">Per Tahun</option>
 		</select>
 	</div>
 	<div class="col-md-6">
-
+		<div class="form-group row">
+			<div class="col-md-6">
+				<?php $getMonth = date('m');  ?>
+				<select class="form-control" name="bulan" id="filterBulan" style="display:none">
+					<option value="">Pilih Bulan</option>
+					<option value="01" <?= $getMonth == '01' ? 'selected' : '' ?>>Januari</option>
+					<option value="02" <?= $getMonth == '02' ? 'selected' : '' ?>>Februari</option>
+					<option value="03" <?= $getMonth == '03' ? 'selected' : '' ?>>Maret</option>
+					<option value="04" <?= $getMonth == '04' ? 'selected' : '' ?>>April</option>
+					<option value="05" <?= $getMonth == '05' ? 'selected' : '' ?>>Mei</option>
+					<option value="06" <?= $getMonth == '06' ? 'selected' : '' ?>>Juni</option>
+					<option value="07" <?= $getMonth == '07' ? 'selected' : '' ?>>Juli</option>
+					<option value="08" <?= $getMonth == '08' ? 'selected' : '' ?>>Agustus</option>
+					<option value="09" <?= $getMonth == '09' ? 'selected' : '' ?>>September</option>
+					<option value="10" <?= $getMonth == '10' ? 'selected' : '' ?>>Oktober</option>
+					<option value="11" <?= $getMonth == '11' ? 'selected' : '' ?>>November</option>
+					<option value="12" <?= $getMonth == '12' ? 'selected' : '' ?>>Desember</option>
+				</select>
+			</div>
+			<div class="col-md-6">
+				<input type="number" name="tahun" id="filterTahun" class="form-control" placeholder="" value="<?= date('Y') ?>" style="display:none">
+			</div>
+		</div>
 	</div>
-	<div class="col-md-12" id="listKamarDiv">
+	<div class="col-md-12 mt-4">
+		<ul class="featured-list" id="listRankKamarPerFilter">
+		</ul>
 	</div>
 </div>
 
 <script>
-	let parentUrl = `/admin/master/kamar`;
-	let typeForm = '';
-	let listKamarG = [];
-
-	// Fungsi pencarian
-	function filterFunction(e) {
-		const inputPencarian = e.target.value.toLowerCase();
-		// Filter dan tampilkan hasil pencarian
-		const hasilPencarian = listKamarG.filter(item => item.namaKamar.toLowerCase().includes(inputPencarian));
-		setList(hasilPencarian)
-
-	}
-
-	const loadListKamar = async () => {
-		const { data } = await axios.get(`${parentUrl}/get-list-data-kamar`);
-		listKamarG = data;
-		setList(data)
-	}
-
-	const setList = (data) => {
-		const html = data.map((v) => {
-			return ` 
-				<div class="dz-categories-bx mb-3 align-items-center">
-					<div class="icon-bx">
-						<a href="products.html">
-							<svg enable-background="new 0 0 48 48" height="24" viewBox="0 0 48 48" width="24"
-								xmlns="http://www.w3.org/2000/svg">
-								<path
-									d="m30.1 47.5h-21.8c-.9 0-1.7-.7-1.9-1.6l-5.9-30.5c-.1-.6 0-1.2.4-1.6.4-.5.9-.7 1.5-.7h33.5c.6 0 1.1.3 1.5.7s.5 1 .4 1.6l-5.8 30.5c-.2.9-1 1.6-1.9 1.6zm-20.2-3.9h18.6l5.1-26.6h-28.8z"
-									fill="#fff" />
-								<path
-									d="m31.3 42.3c-.5 0-1.1-.2-1.5-.7-.7-.8-.6-2.1.2-2.8 3.9-3.4 6.1-5.5 9-8.2 1-.9 2-1.9 3.2-3 1.8-1.7 1.4-3.4.9-4.2-.9-1.7-3.3-3.1-6.5-2.4-1.1.2-2.1-.4-2.3-1.5s.4-2.1 1.5-2.3c4.5-1 8.9.9 10.8 4.5 1.6 3 .9 6.4-1.8 8.9-1.2 1.1-2.2 2.1-3.2 3-2.8 2.6-5.2 4.9-9.1 8.3-.3.2-.7.4-1.2.4z"
-									fill="#fff" />
-								<path d="m9.3 10.1c-1.1 0-2-.9-2-2v-5.6c0-1.1.9-2 2-2s2 .9 2 2v5.7c-.1 1-.9 1.9-2 1.9z"
-									fill="#fff" />
-								<path d="m18.1 10.1c-1.1 0-2-.9-2-2v-5.6c0-1.1.9-2 2-2s2 .9 2 2v5.7c-.1 1-.9 1.9-2 1.9z"
-									fill="#fff" />
-								<path d="m26.9 10.1c-1.1 0-2-.9-2-2v-5.6c0-1.1.9-2 2-2s2 .9 2 2v5.7c-.1 1-.9 1.9-2 1.9z"
-									fill="#fff" />
-							</svg>
-						</a>
-					</div>
-					<div class="dz-content w-100">
-						<div class="row gap-2 justify-content-between gap-md-0">
-							<div class="col-md-9">
-								<h6 class="title fw-bold list-item">
-									${v.namaKamar} (${v.aliasKamar})
-								</h6>
-								<span class="menus text-primary list-item">${v.namaAsrama}</span>
-							</div>
-							<div class="col-md-3">
-								<div class="d-flex gap-2">
-									<button onclick="updateKamarModel('${v.kamarId}')" type="button" class="btn btn-warning btn-sm mr-3 edit"><i class="fa fa-edit"></i></button>
-									<button onclick="deleteKamar('${v.kamarId}')" type="button" class="btn btn-danger btn-sm delete"><i class="fa fa-trash"></i></button>
+	let parentUrl = `/report/rank`;
+	const setListRankKamar = async (data) => {
+		try {
+			let html = urutkanRankTerbesar(data).map((v, i) => {
+				let index = i + 1;
+				let content = '';
+				if (index <= 3) {
+					content = `
+						<li>
+							<div class="dz-card list">
+								<div class="dz-media border bg-primary rounded">
+									<!-- <a href="product-detail.html"><img src="<?= base_url() ?>assets/mobile/assets/images/products/product1.jpg"
+										alt="" /></a> -->
+									<div class="dz-rating w-100 text-center" style="left:0;">Juara ${i + 1}</div>
+								</div>
+								<div class="dz-content">
+									<ul class="dz-meta">
+										<li class="dz-price flex-1 text-secondary" style="font-size: 12px;">${v.namaAsrama}</li>
+									</ul>
+									<div class="dz-head">
+										<h6 class="title">
+											${v.namaKamar} (${v.pembinaKamar})
+										</h6>
+									</div>
+									<div class="dz-body">
+										<span class="text-primary">
+											Score: ${v.jumlahNilai}
+										</span>
+									</div>
 								</div>
 							</div>
-						</div>
-					</div>
-				</div>
-			`;
-		});
-		$(`#listKamarDiv`).html(html);
+						</li>
+					`;
+				}
+				return content;
+			});
+			$(`#listRankKamarPerFilter`).html(html);
+		} catch (error) {
+			console.log();
+		}
 	}
 
-	const addKamarModal = () => {
-		typeForm = 'add';
-		$(`#titleModalKamarId`).html(`Tambah`);
-		$(`#typeForm`).val(typeForm);
-		$(`#modalActKamarId`).modal('show');
-	}
-
-	const updateKamarModel = (id) => {
-		typeForm = 'edit';
-		$(`#titleModalKamarId`).html(`Edit`);
-		$(`#typeForm`).val(typeForm);
-		$(`#kamarId`).val(id);
-		let getExist = Object.values(listKamarG).find(v => v.kamarId == id);
-		$.each(getExist, (i, v) => {
-			$(`#${i}`).val(v);
-		});
-		$(`#modalActKamarId`).modal('show');
-	}
-
-	const saveKamar = async (e) => {
+	const filterKamarPerMonth = async() => {
 		try {
-			let formData = $(`#formActKamarId`).serialize();
-			const { data } = await axios.post(`${parentUrl}/save`, formData);
+			const {data} = await axios.get(`/report/rank/filter-per-month`, {
+				params:{
+					filterBulan: $(`#filterBulan`).val(),
+					filterTahun: $(`#filterTahun`).val()
+				}
+			});	
+			setListRankKamar(data);
 			return data;
 		} catch (error) {
 			console.log(error);
 		}
 	}
 
-	const deleteKamar = async (kamarId) => {
+	const filterKamarPerYear = async() => {
 		try {
-			const { data } = await axios.delete(`${parentUrl}/delete`, {
-				params: {
-					kamarId
+			const {data} = await axios.get(`/report/rank/filter-per-year`, {
+				params:{
+					filterTahun: $(`#filterTahun`).val()
 				}
-			});
-			responCheck(data, () => {
-				loadListKamar();
-			})
+			});	
+			setListRankKamar(data);
+			return data;
 		} catch (error) {
 			console.log(error);
 		}
 	}
 
-	$(document).ready(async function () {
-		await loadListKamar();
-		$('#search-kamar').on('input', filterFunction);
-	});
+	const showFilterBulan = (sts) => {
+		if (!sts) {
+			$(`#filterBulan`).hide();
+			return 
+		}
+		$(`#filterBulan`).show();
+	}
+
+	const showFilterTahun = (sts) => {
+		if (!sts) {
+			$(`#filterTahun`).hide();
+			return 
+		}
+		$(`#filterTahun`).show();
+	}
+
+	const filterData = (e) => {
+		let sts = $(e.target).val();
+		let filterBulan = $(`#filterBulan`).val();
+		let filterTahun = $(`#filterTahun`).val();
+		if (sts == '1') {
+			if (filterBulan && filterTahun) {
+				filterKamarPerMonth();
+			}
+		}else {
+			if (filterTahun) {
+				filterKamarPerYear();
+			}
+		}
+
+	}
+
+	$(document).ready(function () {
+		// setListRankKamarPerFilter();
+
+		$(`#filterPer`).on('change', (e) => {
+			let val = $(e.target).val();
+			console.log(val);
+			let filterBulan = $(`#filterBulan`).val();
+			let filterTahun = $(`#filterTahun`).val();
+			
+			if (val == '1') {
+				showFilterBulan(true);
+				showFilterTahun(true);
+				if (filterBulan && filterTahun) {
+					filterKamarPerMonth();
+				}
+			} else if (val == '2') {
+				showFilterBulan(false);
+				showFilterTahun(true);
+				if (filterTahun) {
+					filterKamarPerYear();
+				}
+			}
+		})
+	})
 </script>
 <!-- Categories Swiper -->

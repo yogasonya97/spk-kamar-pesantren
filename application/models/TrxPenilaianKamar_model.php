@@ -18,6 +18,16 @@ class TrxPenilaianKamar_model extends CI_Model
         return $this->db->where('kamarId', $id)->get();
     }
 
+    public function getRankKamarByMonthParams($id, $month, $year)
+    {
+        dd($month);
+        $this->db->select('kamarId, kriteriaId, nilai, createdAt');
+        $this->db->from('trx_penilaian_kamar');
+        $this->db->where("MONTH(createdAt)",$month);
+        $this->db->where("YEAR(createdAt)",$year);
+        return $this->db->where('kamarId', $id)->get();
+    }
+
     public function getRankKamarByMonth()
     {
         $dataKamar = $this->MasterKamar_model->getListDataKamar()->result();
@@ -26,6 +36,26 @@ class TrxPenilaianKamar_model extends CI_Model
 				return $i + $v->nilai;
 			});
 			
+			return [
+				'kamarId' => $item->kamarId,
+                'namaAsrama' => $item->namaAsrama,
+                'namaKamar' => $item->namaKamar,
+                'aliasKamar' => $item->aliasKamar,
+                'pembinaKamar' => $item->namaPembina,
+				'jumlahNilai' => $getNilaiKamar,
+				'createdAt' => date('Y-m', strtotime($item->createdAt))
+			];
+		});
+        return $data;
+    }
+
+    public function getRankKamarByMonthReport($month, $year)
+    {
+        $dataKamar = $this->MasterKamar_model->getListDataKamar()->result();
+        $data = collect($dataKamar)->map(function ($item) use($month,$year) {
+			$getNilaiKamar = collect($this->getRankKamarByMonthParams($item->kamarId,$month, $year)->result())->reduce(function ($i,$v) {
+				return $i + $v->nilai;
+			});
 			return [
 				'kamarId' => $item->kamarId,
                 'namaAsrama' => $item->namaAsrama,
