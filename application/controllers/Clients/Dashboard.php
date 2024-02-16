@@ -46,7 +46,7 @@ class Dashboard extends CI_Controller {
 
 	public function getRankKamarPerMonth() 
 	{
-		$data = $this->TrxPenilaiankamar_model->getRankKamarByYear();
+		$data = $this->TrxPenilaianKamar_model->getRankKamarByYear();
 		return $this->response->json($data);
 	}
 	
