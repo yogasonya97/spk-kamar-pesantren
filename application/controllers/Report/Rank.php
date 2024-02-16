@@ -26,9 +26,7 @@ class Rank extends CI_Controller {
 
 		if (!$this->session->userdata('validate')) {
 			redirect(base_url() . 'login');
-		} else if ($this->session->userdata('validate')){
-			redirect(base_url() . 'error-403_override');
-		}
+		} 
 		if ($this->session->userdata('validate') ==true) {
 			$this->id_user = $this->session->userdata('user_id');
 		}
