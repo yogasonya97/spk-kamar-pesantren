@@ -61,6 +61,7 @@ $route['auth/register-proses'] = 'Auth/registerProses';
 $route['report/rank/index'] = 'Report/Rank/index';
 $route['report/rank/filter-per-month'] = 'Report/Rank/filterPerMonth';
 $route['report/rank/filter-per-year'] = 'Report/Rank/filterPerYear';
+$route['report/rank/cetak-pdf'] = 'Report/Rank/cetakPdf';
 
 $route['admin'] = 'Admin/Dashboard/index';
 $route['admin/get-rank-kamar-per-month'] = 'Admin/Dashboard/getRankKamarPerMonth';

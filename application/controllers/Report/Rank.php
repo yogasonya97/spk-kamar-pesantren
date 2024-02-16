@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+use Dompdf\Dompdf;
 
 class Rank extends CI_Controller {
 
@@ -32,6 +33,8 @@ class Rank extends CI_Controller {
 			$this->id_user = $this->session->userdata('user_id');
 		}
 
+		$this->pdf = new Dompdf();
+
 	}
 
 	// PAGE
@@ -50,6 +53,42 @@ class Rank extends CI_Controller {
 
 		$data = $this->TrxPenilaiankamar_model->getRankKamarByMonthReport($filterBulan, $filterTahun);
 		return $this->response->json($data);
+	}
+
+	public function filterPerYear() 
+	{
+		$filterBulan = $this->input->get('filterBulan');
+		$filterTahun = $this->input->get('filterTahun');
+		$data = $this->TrxPenilaiankamar_model->getRankKamarByYearReport($filterTahun);
+		return $this->response->json($data);
+	}
+
+	public function cetakPdf()
+	{
+		$type = $this->input->get('typePrint');
+		
+		$filterBulan = $this->input->get('filterBulan');
+		$filterTahun = $this->input->get('filterTahun');
+
+		if ($type == '1') {
+			$date = formatIndoTextWithoutDay(date('d').'-'.$filterBulan.'-'.$filterTahun);
+			$data = $this->TrxPenilaiankamar_model->getRankKamarByMonthReport($filterBulan, $filterTahun);
+		} else {
+			$date = 'Tahun '.$filterTahun;
+			$data = $this->TrxPenilaiankamar_model->getRankKamarByYearReport($filterTahun);
+		}
+		// Load view ke Dompdf
+        $html = $this->load->view('mobile/report/cetakPdf', [
+			'dataRank' => sortRankDariYangTerbesar($data,'jumlahNilai'),
+			'tgl' => $date
+		], true);
+        $this->pdf->loadHtml($html);
+
+        // Render PDF
+        $this->pdf->render();
+
+        // Tampilkan PDF
+        $this->pdf->stream("cetak.pdf", array("Attachment" => false));
 	}
 
 

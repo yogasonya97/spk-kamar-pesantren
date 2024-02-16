@@ -40,4 +40,13 @@ if (!function_exists('formatIndoText')) {
     }
 }
 
+if (!function_exists('formatIndoTextWithoutDay')) {
+    function formatIndoTextWithoutDay($date) {
+		$month = konversiBulan(date('F', strtotime($date)));
+		$year = date('Y', strtotime($date));
+		$formatText = $month.' '.$year;
+		return $formatText;
+    }
+}
+
 

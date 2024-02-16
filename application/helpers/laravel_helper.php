@@ -73,4 +73,9 @@ class Laravel_Collection
 
         return collect($result);
     }
+
+    public function filter($callback)
+    {
+        return array_filter($this->items, $callback);
+    }
 }

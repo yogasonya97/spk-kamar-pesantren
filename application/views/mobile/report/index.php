@@ -37,6 +37,9 @@
 		</div>
 	</div>
 	<div class="col-md-12 mt-4">
+		<button type="button" id="cetakRank" class="btn btn-success btn-sm">Cetak</button>
+	</div>
+	<div class="col-md-12 mt-4">
 		<ul class="featured-list" id="listRankKamarPerFilter">
 		</ul>
 	</div>
@@ -146,12 +149,33 @@
 
 	}
 
+	const changeFilter = () => {
+		resetListContentRank()
+		let filter = $(`#filterPer`).val();
+		let filterBulan = $(`#filterBulan`).val();
+		let filterTahun = $(`#filterTahun`).val();
+
+		if (filter == '1') {
+			if (filterBulan && filterTahun) {
+				filterKamarPerMonth();
+			}
+		} else if (filter == '2') {
+			if (filterTahun) {
+				filterKamarPerYear();
+			}
+		}
+	}
+
+	const resetListContentRank = () => {
+		$(`#listRankKamarPerFilter`).empty();
+	}
+
 	$(document).ready(function () {
 		// setListRankKamarPerFilter();
 
 		$(`#filterPer`).on('change', (e) => {
+			resetListContentRank()
 			let val = $(e.target).val();
-			console.log(val);
 			let filterBulan = $(`#filterBulan`).val();
 			let filterTahun = $(`#filterTahun`).val();
 			
@@ -168,7 +192,34 @@
 					filterKamarPerYear();
 				}
 			}
-		})
+		});
+
+		$(`#filterBulan, #filterTahun`).on('change', (e) => {
+			changeFilter();
+		});
+		
+		$(`#filterTahun`).on('keyup', (e) => {
+			changeFilter();
+		});
+
+		$(`#cetakRank`).on('click', (e) => {
+			let elementFilter = $(`#filterPer`).val();
+			let filterBulan = $(`#filterBulan`).val();
+			let filterTahun = $(`#filterTahun`).val();
+
+			let typePrint = '';
+
+			if (elementFilter == '1') {
+				typePrint = 1;
+			} else {
+				typePrint = 2;
+			}
+			
+			if (elementFilter) {
+				window.open(`/report/rank/cetak-pdf?typePrint=${typePrint}&filterBulan=${filterBulan}&filterTahun=${filterTahun}`, '_blank');
+			}
+		});
+
 	})
 </script>
 <!-- Categories Swiper -->
