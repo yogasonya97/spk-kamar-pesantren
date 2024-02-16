@@ -58,7 +58,7 @@ $route['register'] = 'Auth/register';
 $route['auth/login-proses'] = 'Auth/sign';
 $route['auth/register-proses'] = 'Auth/registerProses';
 
-$route['report/rank/index'] = 'Report/Rank/index';
+$route['report/rank'] = 'Report/Rank/index';
 $route['report/rank/filter-per-month'] = 'Report/Rank/filterPerMonth';
 $route['report/rank/filter-per-year'] = 'Report/Rank/filterPerYear';
 $route['report/rank/cetak-pdf'] = 'Report/Rank/cetakPdf';
