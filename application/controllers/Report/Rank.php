@@ -24,9 +24,9 @@ class Rank extends CI_Controller {
 	{
 		parent::__construct();
 
-		if (!$this->session->userdata('validate') && $this->session->userdata('role') != '1') {
+		if (!$this->session->userdata('validate')) {
 			redirect(base_url() . 'login');
-		} else if ($this->session->userdata('validate') && $this->session->userdata('role') != '1'){
+		} else if ($this->session->userdata('validate')){
 			redirect(base_url() . 'error-403_override');
 		}
 		if ($this->session->userdata('validate') ==true) {
