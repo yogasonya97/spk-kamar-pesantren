@@ -51,7 +51,7 @@ class Rank extends CI_Controller {
 		$filterBulan = $this->input->get('filterBulan');
 		$filterTahun = $this->input->get('filterTahun');
 
-		$data = $this->TrxPenilaiankamar_model->getRankKamarByMonthReport($filterBulan, $filterTahun);
+		$data = $this->TrxPenilaianKamar_model->getRankKamarByMonthReport($filterBulan, $filterTahun);
 		return $this->response->json($data);
 	}
 
@@ -59,7 +59,7 @@ class Rank extends CI_Controller {
 	{
 		$filterBulan = $this->input->get('filterBulan');
 		$filterTahun = $this->input->get('filterTahun');
-		$data = $this->TrxPenilaiankamar_model->getRankKamarByYearReport($filterTahun);
+		$data = $this->TrxPenilaianKamar_model->getRankKamarByYearReport($filterTahun);
 		return $this->response->json($data);
 	}
 
@@ -72,10 +72,10 @@ class Rank extends CI_Controller {
 
 		if ($type == '1') {
 			$date = formatIndoTextWithoutDay(date('d').'-'.$filterBulan.'-'.$filterTahun);
-			$data = $this->TrxPenilaiankamar_model->getRankKamarByMonthReport($filterBulan, $filterTahun);
+			$data = $this->TrxPenilaianKamar_model->getRankKamarByMonthReport($filterBulan, $filterTahun);
 		} else {
 			$date = 'Tahun '.$filterTahun;
-			$data = $this->TrxPenilaiankamar_model->getRankKamarByYearReport($filterTahun);
+			$data = $this->TrxPenilaianKamar_model->getRankKamarByYearReport($filterTahun);
 		}
 		// Load view ke Dompdf
         $html = $this->load->view('mobile/report/cetakPdf', [
