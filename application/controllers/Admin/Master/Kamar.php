@@ -38,13 +38,6 @@ class Kamar extends CI_Controller {
 	{
         $data['title'] = 'Data Kamar';
         $data['subtitle'] = 'Daftar Seluruh Kamar';
-        // $data['buttonAct'] = [
-		// 	'add' => $this->session->userdata('role') == '1',
-		// 	'edit' => $this->session->userdata('role') == '1',
-		// 	'delete' => $this->session->userdata('role') == '1'
-		// ];
-        // $data['totalClient'] = $this->Users_model->getTotalClient();
-		// dd($data);
 		$this->tp->mobile('mobile/admin/master/kamar/index', $data);
         $this->load->view('mobile/admin/master/kamar/modalActKamar',$data);
 	}
@@ -70,6 +63,7 @@ class Kamar extends CI_Controller {
 		}
 
         $params = [
+            'jenisKamar' => $this->input->post('jenisKamar'),
             'namaAsrama' => $this->input->post('namaAsrama'),
             'namaKamar' => $this->input->post('namaKamar'),
             'aliasKamar' => $this->input->post('aliasKamar'),

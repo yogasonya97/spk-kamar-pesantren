@@ -29,8 +29,8 @@
 						<li>
 							<div class="dz-card list">
 								<div class="dz-media border bg-primary rounded">
-									<!-- <a href="product-detail.html"><img src="<?= base_url() ?>assets/mobile/assets/images/products/product1.jpg"
-										alt="" /></a> -->
+								<a href="javascript:void(0)"><img src="<?= base_url() ?>assets/mobile/assets/images/icon/door.png"
+										alt="" /></a>
 									<div class="dz-rating w-100 text-center" style="left:0;">Juara ${i+1}</div>
 								</div>
 								<div class="dz-content">

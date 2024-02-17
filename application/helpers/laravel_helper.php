@@ -78,4 +78,9 @@ class Laravel_Collection
     {
         return array_filter($this->items, $callback);
     }
+
+    public function values()
+    {
+        return array_values($this->items);
+    }
 }

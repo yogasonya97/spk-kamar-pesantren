@@ -59,6 +59,7 @@ class Auth extends CI_Controller
 			'email' => $email,
 			'nama' => $result->fullName,
 			'role' => $result->levelUser,
+			'jenisKelamin' => $result->jenisKelamin,
 			'buttonActPermission' => [
 				'add' => $result->levelUser == '1',
 				'edit' => $result->levelUser == '1',
@@ -85,6 +86,7 @@ class Auth extends CI_Controller
 	public function registerProses()
 	{
 		$fullName = $this->input->post('fullName');
+		$jenisKelamin = $this->input->post('jenisKelamin');
 		$email = $this->input->post('email');
 		$password = md5($this->input->post('password'));
 
@@ -105,6 +107,7 @@ class Auth extends CI_Controller
 		$params = [
 			'email' => $email,
 			'fullName' => $fullName,
+			'jenisKelamin' => $jenisKelamin,
 			'password' => $password,
 			'levelUser' => 2,
 		];

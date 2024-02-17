@@ -14,10 +14,26 @@
                 <div class="modal-body">
                     <div class="row">
                         <lable class="col-md-12 font-weight-bold">
+                            Jenis Kamar
+                        </lable>
+                        <div class="col-md-12">
+                                <select class="form-control" id="jenisKamar" name="jenisKamar" required>
+                                    <option value="">Pilih Jenis Kamar</option>
+                                    <option value="A">Akhwat</option>
+                                    <option value="I">Ikhwan</option>
+                                </select>
+                            <div class="invalid-feedback">
+                                <i class="fa-solid fa-info-circle"></i> Jenis Kamar Wajib Di isi.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <lable class="col-md-12 font-weight-bold">
                             Nama Asrama
                         </lable>
                         <div class="col-md-12">
-                            <input type="text" id="namaAsrama" name="namaAsrama" class="form-control" placeholder="Masukkan Nama Asrama*" required>
+                            <input type="text" id="namaAsrama" name="namaAsrama" class="form-control"
+                                placeholder="Masukkan Nama Asrama*" required>
                             <div class="invalid-feedback">
                                 <i class="fa-solid fa-info-circle"></i> Nama Asrama Wajib Di isi.
                             </div>
@@ -28,7 +44,8 @@
                             Nama Kamar
                         </lable>
                         <div class="col-md-12">
-                            <input type="text" id="namaKamar" name="namaKamar" class="form-control" placeholder="Masukkan Nama Kamar*" required>
+                            <input type="text" id="namaKamar" name="namaKamar" class="form-control"
+                                placeholder="Masukkan Nama Kamar*" required>
                             <div class="invalid-feedback">
                                 <i class="fa-solid fa-info-circle"></i> Nama Kamar Wajib Di isi.
                             </div>
@@ -39,7 +56,8 @@
                             Nama Musyrif
                         </lable>
                         <div class="col-md-12">
-                            <input type="text" id="aliasKamar" name="aliasKamar" class="form-control" placeholder="Masukkan Nama Musyrif*" required>
+                            <input type="text" id="aliasKamar" name="aliasKamar" class="form-control"
+                                placeholder="Masukkan Nama Musyrif*" required>
                             <div class="invalid-feedback">
                                 <i class="fa-solid fa-info-circle"></i> Nama Musyrif Wajib Di isi.
                             </div>
@@ -50,7 +68,8 @@
                             Nama Pembina
                         </lable>
                         <div class="col-md-12">
-                            <input type="text" id="namaPembina" name="namaPembina" class="form-control" placeholder="Masukkan Nama Pembina*" required>
+                            <input type="text" id="namaPembina" name="namaPembina" class="form-control"
+                                placeholder="Masukkan Nama Pembina*" required>
                             <div class="invalid-feedback">
                                 <i class="fa-solid fa-info-circle"></i> Nama Pembina Wajib Di isi.
                             </div>

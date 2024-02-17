@@ -10,7 +10,7 @@
     <!-- Meta -->
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="author" content="DexignZone" />
+    <meta name="author" content="GubukITStore" />
     <meta name="robots" content="index, follow" />
 
     <meta name="keywords"
@@ -89,6 +89,16 @@
                                 <div class="input-group input-mini input-lg">
                                     <input type="name" id="name" name="fullName" class="form-control"
                                         placeholder="Masukkan Nama Lengkap" required>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label" for="name">Jenis Kelamin</label>
+                                <div class="input-group input-mini input-lg">
+                                    <select class="form-control" id="jenisKelamin" name="jenisKelamin" required>
+                                        <option value="">Pilih Jenis Kelamin</option>
+                                        <option value="A">Akhwat</option>
+                                        <option value="I">Ikhwan</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="mb-4">

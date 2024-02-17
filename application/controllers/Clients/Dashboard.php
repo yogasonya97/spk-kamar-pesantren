@@ -37,16 +37,17 @@ class Dashboard extends CI_Controller {
 	public function index()
 	{
 		$data['title'] = 'Assalammualaikum, wr,wb';
-		$data['subtitle'] = $this->session->userdata('nama');
+		$data['subtitle'] = $this->session->userdata('nama')." (".($this->session->userdata('jenisKelamin') == 'A' ? 'Akhwat':'Ikhwan').")";
 		$data['totalClient'] = $this->Users_model->getTotalClient();
 		$data['totalKamar'] = $this->MasterKamar_model->getTotalKamar();
 		$data['bulanIni'] = konversiBulan(date('F')).' '.date('Y');
+		// dd($data);
 		$this->tp->mobile('mobile/clients/index', $data);
 	}
 
 	public function getRankKamarPerMonth() 
 	{
-		$data = $this->TrxPenilaianKamar_model->getRankKamarByYear();
+		$data = $this->TrxPenilaianKamar_model->getRankKamarByMonthReport(date('m'),date('Y'));
 		return $this->response->json($data);
 	}
 	

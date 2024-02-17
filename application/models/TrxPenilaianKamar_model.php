@@ -5,34 +5,55 @@ class TrxPenilaianKamar_model extends CI_Model
 {   
     public function getNilaiKamarPerMonthById($id)
     {
-        $this->db->select('kamarId, kriteriaId, nilai, createdAt');
+        $jenisKelaminUser = $this->session->userdata('jenisKelamin');
+        $this->db->select('trx_penilaian_kamar.kamarId, master_kamar.jenisKamar, kriteriaId, nilai, trx_penilaian_kamar.createdAt');
         $this->db->from('trx_penilaian_kamar');
-        $this->db->where("MONTH(createdAt) = MONTH(CURRENT_DATE())");
-        return $this->db->where('kamarId', $id)->get();
+        $this->db->join('master_kamar', 'trx_penilaian_kamar.kamarId = master_kamar.kamarId');
+        if($this->session->userdata('role') != '1') {
+            $this->db->where("master_kamar.jenisKamar = '{$jenisKelaminUser}'");
+        }
+        $this->db->where("MONTH(trx_penilaian_kamar.createdAt) = MONTH(CURRENT_DATE())");
+        return $this->db->where('trx_penilaian_kamar.kamarId', $id)->get();
     }
     public function getNilaiKamarPerYearById($id)
     {
-        $this->db->select('kamarId, kriteriaId, nilai, createdAt');
+        $jenisKelaminUser = $this->session->userdata('jenisKelamin');
+
+        $this->db->select('trx_penilaian_kamar.kamarId, master_kamar.jenisKamar, kriteriaId, nilai, trx_penilaian_kamar.createdAt');
         $this->db->from('trx_penilaian_kamar');
-        $this->db->where("YEAR(createdAt) = YEAR(CURRENT_DATE())");
-        return $this->db->where('kamarId', $id)->get();
+        $this->db->join('master_kamar', 'trx_penilaian_kamar.kamarId = master_kamar.kamarId');
+        if($this->session->userdata('role') != '1') {
+            $this->db->where("master_kamar.jenisKamar = '{$jenisKelaminUser}'");
+        }
+        $this->db->where("YEAR(trx_penilaian_kamar.createdAt) = YEAR(CURRENT_DATE())");
+        return $this->db->where('trx_penilaian_kamar.kamarId', $id)->get();
     }
 
     public function getRankKamarByMonthParams($id, $month, $year)
     {
-        $this->db->select('kamarId, kriteriaId, nilai, createdAt');
+        $jenisKelaminUser = $this->session->userdata('jenisKelamin');
+        $this->db->select('trx_penilaian_kamar.kamarId, master_kamar.jenisKamar, kriteriaId, nilai, trx_penilaian_kamar.createdAt');
         $this->db->from('trx_penilaian_kamar');
-        $this->db->where("MONTH(createdAt)",$month);
-        $this->db->where("YEAR(createdAt)",$year);
-        return $this->db->where('kamarId', $id)->get();
+        $this->db->join('master_kamar', 'trx_penilaian_kamar.kamarId = master_kamar.kamarId');
+        if($this->session->userdata('role') != '1') {
+            $this->db->where("master_kamar.jenisKamar = '{$jenisKelaminUser}'");
+        }
+        $this->db->where("MONTH(trx_penilaian_kamar.createdAt)",$month);
+        $this->db->where("YEAR(trx_penilaian_kamar.createdAt)",$year);
+        return $this->db->where('trx_penilaian_kamar.kamarId', $id)->get();
     }
 
     public function getRankKamarByYearParams($id, $year)
     {
-        $this->db->select('kamarId, kriteriaId, nilai, createdAt');
+        $jenisKelaminUser = $this->session->userdata('jenisKelamin');
+        $this->db->select('trx_penilaian_kamar.kamarId, master_kamar.jenisKamar, kriteriaId, nilai, trx_penilaian_kamar.createdAt');
         $this->db->from('trx_penilaian_kamar');
-        $this->db->where("YEAR(createdAt)",$year);
-        return $this->db->where('kamarId', $id)->get();
+        $this->db->join('master_kamar', 'trx_penilaian_kamar.kamarId = master_kamar.kamarId');
+        if($this->session->userdata('role') != '1') {
+        $this->db->where("master_kamar.jenisKamar = '{$jenisKelaminUser}'");
+        }
+        $this->db->where("YEAR(trx_penilaian_kamar.createdAt)",$year);
+        return $this->db->where('trx_penilaian_kamar.kamarId', $id)->get();
     }
 
     public function getRankKamarByMonth()
@@ -66,6 +87,7 @@ class TrxPenilaianKamar_model extends CI_Model
             if ($getNilaiKamar) {
                 $data = [
                     'kamarId' => $item->kamarId,
+                    'jenisKamar' => $item->jenisKamar,
                     'namaAsrama' => $item->namaAsrama,
                     'namaKamar' => $item->namaKamar,
                     'aliasKamar' => $item->aliasKamar,
@@ -78,9 +100,9 @@ class TrxPenilaianKamar_model extends CI_Model
             }
 			return $data;
 		});
-        return collect($data)->filter(function ($v) {
+        return collect(collect($data)->filter(function ($v) {
             return $v != null;
-        });
+        }))->values();
     }
 
     public function getRankKamarByYearReport($year)
@@ -93,6 +115,7 @@ class TrxPenilaianKamar_model extends CI_Model
             if ($getNilaiKamar) {
                 $data = [
                     'kamarId' => $item->kamarId,
+                    'jenisKamar' => $item->jenisKamar,
                     'namaAsrama' => $item->namaAsrama,
                     'namaKamar' => $item->namaKamar,
                     'aliasKamar' => $item->aliasKamar,
@@ -105,8 +128,8 @@ class TrxPenilaianKamar_model extends CI_Model
             }
 			return $data;
 		});
-        return collect($data)->filter(function ($v) {
+        return collect(collect($data)->filter(function ($v) {
             return $v != null;
-        });
+        }))->values();
     }
 }
