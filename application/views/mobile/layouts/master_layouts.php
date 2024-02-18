@@ -85,13 +85,13 @@
 		<!-- Sidebar End -->
 
 		<!-- Nav Floting Start -->
-		<div class="dz-nav-floting">
+		<div class="dz-nav-floting bg-white">
 			<!-- Header -->
 			<?php include(APPPATH . 'views/mobile/layouts/sub_layouts/header.php') ?>
 			<!-- Header -->
 
 			<!-- Main Content Start -->
-			<main class="page-content bg-white <?php if ($this->session->userdata('role') == '2') : ?>h-100<?php endif; ?>">
+			<main class="page-content bg-white p-b60">
 				<div class="container">
 					<?= $_content; ?>
 
@@ -160,6 +160,7 @@
 				if (form.checkValidity() === false) {
 					e.stopPropagation();
 					form.classList.add("was-validated");
+					$(`.form-range`).parent().css("border", "1px solid #159E42");
 					let formRequired = $(`.form-control:invalid`);
 					let inputId = formRequired[0].id;
 					scrollToSelector(`#` + inputId);

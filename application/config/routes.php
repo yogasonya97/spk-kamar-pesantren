@@ -83,6 +83,7 @@ $route['client/get-rank-kamar-per-month'] = 'Clients/Dashboard/getRankKamarPerMo
 
 $route['client/nilai'] = 'Clients/Nilai/index';
 $route['client/nilai/get-list-kamar'] = 'Clients/Nilai/getListKamar';
+$route['client/nilai/entry/(:any)'] = 'Clients/Nilai/entryNIlai/$1';
 
 
 $route['404_override'] = 'ErrorHandle/onProgressPage';
