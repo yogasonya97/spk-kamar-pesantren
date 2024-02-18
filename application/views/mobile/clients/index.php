@@ -6,13 +6,17 @@
 			</h6>
 			<h6 class="menus text-white">kamar</h6>
 		</div>
-		<h6 class="title text-white" style="font-size: 4em"><?= $totalKamar; ?></h6>
+		<h6 class="title text-white" style="font-size: 4em">
+			<?= $totalKamar ?>
+		</h6>
 	</div>
 </div>
 
 <div class="title-bar">
 	<h5 class="title">3 Kamar terbaik</h5>
-	<a href="products.html"><?= $bulanIni; ?></a>
+	<a href="<?= base_url() ?>client/rangking">
+		<?= $bulanIni; ?>
+	</a>
 </div>
 
 <ul class="featured-list" id="listRankKamarPerMonth">
@@ -22,20 +26,20 @@
 		try {
 			const { data } = await axios.get(`/client/get-rank-kamar-per-month`);
 			let html = urutkanRankTerbesar(data).map((v, i) => {
-				let index = i+1;
+				let index = i + 1;
 				let content = '';
 				if (index <= 3) {
 					content = `
 						<li>
 							<div class="dz-card list">
 								<div class="dz-media border bg-primary rounded">
-								<a href="javascript:void(0)"><img src="<?= base_url() ?>assets/mobile/assets/images/icon/door.png"
-										alt="" /></a>
-									<div class="dz-rating w-100 text-center" style="left:0;">Juara ${i+1}</div>
+									<!-- <a href="product-detail.html"><img src="<?= base_url() ?>assets/mobile/assets/images/products/product1.jpg"
+										alt="" /></a> -->
+									<div class="dz-rating w-100 text-center" style="left:0;">Juara ${i + 1}</div>
 								</div>
 								<div class="dz-content">
 									<ul class="dz-meta">
-										<li class="dz-price flex-1 text-secondary" style="font-size: 12px;">${v.namaAsrama}</li>
+										<li class="dz-price flex-1 text-muted" style="font-size: 12px;">${v.namaAsrama}</li>
 									</ul>
 									<div class="dz-head">
 										<h6 class="title">
@@ -64,3 +68,4 @@
 		setListRankKamarPerMonth();
 	})
 </script>
+<!-- Featured Beverages -->

@@ -81,6 +81,9 @@ $route['admin/master/kriteria/delete'] = 'Admin/Master/Kriteria/delete';
 $route['client'] = 'Clients/Dashboard/index';
 $route['client/get-rank-kamar-per-month'] = 'Clients/Dashboard/getRankKamarPerMonth';
 
+$route['client/nilai'] = 'Clients/Nilai/index';
+$route['client/nilai/get-list-kamar'] = 'Clients/Nilai/getListKamar';
+
 
 $route['404_override'] = 'ErrorHandle/onProgressPage';
 $route['error-403_override'] = 'ErrorHandle/forbiddenError403';
