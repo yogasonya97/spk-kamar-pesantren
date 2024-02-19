@@ -43,22 +43,68 @@ class Nilai extends CI_Controller {
 
 	public function getListKamar() 
 	{
-		$data = $this->MasterKamar_model->getListDataKamar()->result();
+		$data = $this->MasterKamar_model->getListDataKamarByJenisKamarUser()->result();
         $this->response->json($data);
 	}
 
-	public function entryNilai()
+	public function entryNilai($kamarId)
 	{
 
 		$data['title'] = 'Penilaian Kamar';
 		$data['subtitle'] = 'Entry nilai';
-		$kamarId = $this->uri->segment(4);
+		// $kamarId = $this->uri->segment(4);
 		$data['detailKamar'] = $this->MasterKamar_model->getDetailKamarByWhere(['kamarId' => $kamarId])->row();		
-		$data['kriteria'] = $this->MasterKriteria_model->getListDataKriteria()->result();	
+		$data['kriteria'] = $this->MasterKriteria_model->getListDataKriteria()->result();
+		$data['kamarId'] = $kamarId;
 
 		$this->tp->mobile('mobile/clients/nilai/entry', $data);
 
 	}
+
+	public function saveNilaiKamar()
+	{
+		$kamarId = $this->input->post('kamarId');
+		$listNilaiArr = $this->input->post('nilai');
+		$notes = $this->input->post('notes');
+		$checkUserNilaiToday = $this->db->get_where('trx_penilaian_kamar', [
+			"userIdInput" => $this->session->userdata('user_id'),
+			"kamarId" => $kamarId,
+			"DATE(createdAt)" => date('Y-m-d')
+		])->result();
+		if (count($checkUserNilaiToday) > 0) {
+			return $this->response->json(failResponse('Hari ini anda Sudah Memberi Nilai pada kamar ini'));
+		}
+		foreach($listNilaiArr as $k => $v) {
+			$params = [
+				'userIdInput' => $this->session->userdata('user_id'),
+				'kamarId' => $kamarId,
+				'kriteriaId' => $k,
+				'nilai' => $v,
+				'notes' => $notes,
+				'attachment' => ''
+			];
+			$this->Crud_model->input_data($params, 'trx_penilaian_kamar');
+		}
+		$res = successResponse('Berhasil merubah data');
+	
+		return $this->response->json($res);
+	}
+
+	public function uploadFileKeterangan() {
+		$config['upload_path'] = './uploads/';
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['max_size'] = 100; // Max size in kilobytes
+	
+		$this->load->library('upload', $config);
+	
+		if (!$this->upload->do_upload('fileInput')) {
+		  $error = array('error' => $this->upload->display_errors());
+		  // Handle error, redirect atau tampilkan pesan kesalahan
+		} else {
+		  $data = array('upload_data' => $this->upload->data());
+		  // File berhasil diunggah, lakukan apa yang diperlukan dengan data file yang diunggah
+		}
+	  }
 	
 
 }

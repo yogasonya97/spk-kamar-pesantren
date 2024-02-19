@@ -8,6 +8,13 @@ class MasterKamar_model extends CI_Model
         return $this->db->get('master_kamar');
     }
 
+    public function getListDataKamarByJenisKamarUser()
+    {
+        $jenisKelamin = $this->session->userdata('jenisKelamin');
+
+        return $this->db->get_where('master_kamar',['jenisKamar' => $jenisKelamin]);
+    }
+
     public function getDetailKamarByWhere(array $where)
     {
         return $this->db->get_where('master_kamar', $where);
