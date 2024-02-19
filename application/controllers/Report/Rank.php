@@ -88,7 +88,5 @@ class Rank extends CI_Controller {
         // Tampilkan PDF
         $this->pdf->stream("cetak.pdf", array("Attachment" => false));
 	}
-
-	EXP6-QN2J
 }
 
