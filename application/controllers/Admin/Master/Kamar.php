@@ -44,7 +44,11 @@ class Kamar extends CI_Controller {
 
     public function getListDataKamar()
     {
-        $data = $this->MasterKamar_model->getListDataKamar()->result();
+		if ($this->session->userdata('role') == '1') {
+			$data = $this->MasterKamar_model->getListDataKamar()->result();
+		} else {
+			$data = $this->MasterKamar_model->getListDataKamarByJenisKamarUser()->result();
+		}
         $this->response->json($data);
     }
 
