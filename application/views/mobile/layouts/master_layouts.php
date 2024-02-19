@@ -58,12 +58,13 @@
 	<link
 		href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&amp;family=Raleway:wght@300;400;500&amp;display=swap"
 		rel="stylesheet" />
-
+	
 
 </head>
 
 <body>
 	<?php $buttonActPermission = json_encode($this->session->userdata('buttonActPermission')); ?>
+	<script src="<?= base_url() ?>assets/mobile/assets/js/sweetalert2@11.js"></script>
 	<script src="<?= base_url() ?>assets/mobile/assets/js/jquery.js"></script>
 	<script src="<?= base_url() ?>assets/mobile/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<!-- <script src="<?= base_url() ?>assets/mobile/assets/vendor/swiper/swiper-bundle.min.js"></script> -->
@@ -72,10 +73,10 @@
 	<script src="<?= base_url() ?>assets/mobile/assets/js/axios.min.js"></script>
 	<script>
 		const btnActPermit = JSON.parse('<?= $buttonActPermission; ?>');
-	
+
 	</script>
 	<div class="page-wrapper">
-		<!-- Preloader -->		
+		<!-- Preloader -->
 		<?php include(APPPATH . 'views/mobile/layouts/loading_screen.php') ?>
 		<!-- Preloader end-->
 
@@ -101,7 +102,7 @@
 			<!-- Main Content End -->
 
 			<!-- Menubar -->
-			<?php if ($this->session->userdata('role') == '2') : ?>
+			<?php if ($this->session->userdata('role') == '2'): ?>
 				<?php include(APPPATH . 'views/mobile/layouts/sub_layouts/bottom_navbar.php') ?>
 			<?php endif; ?>
 			<!-- Menubar -->
@@ -121,18 +122,18 @@
 
 			// Ambil objek pertama (dengan nilai terbesar)
 			const rankTerbesar = data[0];
-			
+
 			return rankTerbesar;
 		}
 
 		function urutkanRankTerbesar(data) {
 			// Urutkan array berdasarkan jumlahNilai secara menurun
 			data.sort((a, b) => b.jumlahNilai - a.jumlahNilai);
-			
+
 			return data;
 		}
-		
-		const showPerimitedCrudBtn = (type,sts) => {
+
+		const showPerimitedCrudBtn = (type, sts) => {
 			if (sts) {
 				$(`.${type}`).removeClass('d-none');
 				return;
@@ -147,7 +148,7 @@
 			})
 		}
 
-		$(document).ready(function() {
+		$(document).ready(function () {
 			setTimeout(() => {
 				validationBtnPermitedCrud();
 			}, 500);
@@ -235,6 +236,23 @@
 
 				myToast.show()
 			}
+		}
+
+		const swalConfirm = (titles, callback, textHtml = '') => {
+			return Swal.fire({
+				title: titles,
+				html: textHtml,
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#3085d6",
+				cancelButtonColor: "#d33",
+				confirmButtonText: "Ya, Saya yakin!",
+				cancelButtonText: "Batal"
+			}).then((result) => {
+				if (result.isConfirmed) {
+					callback()
+				}
+			});
 		}
 
 	</script>

@@ -3,6 +3,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class TrxPenilaianKamar_model extends CI_Model
 {   
+    public function getDataTrxByUserWhere($where) 
+    {
+        return $this->db->get_where('trx_penilaian_kamar', $where);
+    }
     public function getNilaiKamarPerMonthById($id)
     {
         $jenisKelaminUser = $this->session->userdata('jenisKelamin');
@@ -26,6 +30,21 @@ class TrxPenilaianKamar_model extends CI_Model
             $this->db->where("master_kamar.jenisKamar = '{$jenisKelaminUser}'");
         }
         $this->db->where("YEAR(trx_penilaian_kamar.createdAt) = YEAR(CURRENT_DATE())");
+        return $this->db->where('trx_penilaian_kamar.kamarId', $id)->get();
+    }
+
+    public function getNilaiKamarByWeekParams($id)
+    {
+        $userIdSession = $this->session->userdata('user_id');
+        $jenisKelaminUser = $this->session->userdata('jenisKelamin');
+        $this->db->select('trx_penilaian_kamar.kamarId, master_kamar.jenisKamar, kriteriaId, nilai, trx_penilaian_kamar.createdAt');
+        $this->db->from('trx_penilaian_kamar');
+        $this->db->join('master_kamar', 'trx_penilaian_kamar.kamarId = master_kamar.kamarId');
+        if($this->session->userdata('role') != '1') {
+            $this->db->where("master_kamar.jenisKamar = '{$jenisKelaminUser}'");
+        }
+        $this->db->where("trx_penilaian_kamar.userIdInput = ".$userIdSession);
+        $this->db->where("WEEK(trx_penilaian_kamar.createdAt) = WEEK(CURRENT_DATE())", NULL, FALSE);
         return $this->db->where('trx_penilaian_kamar.kamarId', $id)->get();
     }
 
@@ -131,5 +150,52 @@ class TrxPenilaianKamar_model extends CI_Model
         return collect(collect($data)->filter(function ($v) {
             return $v != null;
         }))->values();
+    }
+
+    public function validationNilaiWeekEntry($kamarId)
+    {
+        return $this->db->where("userIdInput", $this->session->userdata('user_id'))
+        ->where("kamarId", $kamarId)
+        ->where("WEEK(createdAt) = WEEK(CURRENT_DATE())", NULL, FALSE)
+        ->get('trx_penilaian_kamar')
+        ->result();
+    }
+
+    public function getListNilaiKamarByWeek()
+    {
+      
+        $dataKamar = $this->MasterKamar_model->getListDataKamarByJenisKamarUser()->result();
+        $data = collect($dataKamar)->map(function ($item) {
+			$getNilaiKamar = collect($this->getNilaiKamarByWeekParams($item->kamarId)->result())->reduce(function ($i,$v) {
+				return $i + $v->nilai;
+			});
+            if ($getNilaiKamar) {
+                $data = [
+                    'kamarId' => $item->kamarId,
+                    'jenisKamar' => $item->jenisKamar == 'A' ? 'Ahkwat':'Ikhwan',
+                    'namaAsrama' => $item->namaAsrama,
+                    'namaKamar' => $item->namaKamar,
+                    'aliasKamar' => $item->aliasKamar,
+                    'namaPembina' => $item->namaPembina,
+                    'jumlahNilai' => $getNilaiKamar,
+                    'createdAt' => date('Y-m', strtotime($item->createdAt)),
+                    'isNilai' => 1
+                ];
+            } else {
+                $data = [
+                    'kamarId' => $item->kamarId,
+                    'jenisKamar' => $item->jenisKamar == 'A' ? 'Ahkwat':'Ikhwan',
+                    'namaAsrama' => $item->namaAsrama,
+                    'namaKamar' => $item->namaKamar,
+                    'aliasKamar' => $item->aliasKamar,
+                    'namaPembina' => $item->namaPembina,
+                    'jumlahNilai' => 0,
+                    'createdAt' => date('Y-m', strtotime($item->createdAt)),
+                    'isNilai' => 0
+                ];
+            }
+			return $data;
+		});
+        return collect($data)->values();
     }
 }

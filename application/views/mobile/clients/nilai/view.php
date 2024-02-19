@@ -30,7 +30,7 @@
 	<div class="col-md-12">
 		<div class="dz-categories-bx mb-3 bg-primary">
 			<div class="dz-content w-100 d-flex justify-content-between align-items-center">
-				<div>
+				<div class="">
 					<h4 class="title text-white">
 						<?= $detailKamar->namaKamar ?>
 					</h4>
@@ -39,6 +39,15 @@
 						<?= $detailKamar->namaPembina ?> )
 					</h6>
 				</div>
+				<div class="text-center">
+					<h6 class="menus text-white">
+						Score
+					</h6>
+					<h4 class="title text-white">
+						<?= $totalScore ?> 
+					</h4>
+				</div>
+			
 			</div>
 		</div>
 		<h6>Form Enty Nilai</h6>
@@ -50,26 +59,24 @@
 					</label>
 					<div class="input-group">
 						<span class="input-group-text" style="width:80%;">
-							<input type="range" value="0" min="0" max="100" class="form-range" id="inputRange_<?= $key ?>"
-								oninput="handleChangeEntry(this.value, <?= $key ?>)" required>
+							<input disabled type="range" min="0" max="100" class="form-range" id="inputRange_<?= $key ?>" value="<?= $item->nilai ?>" required>
 						</span>
-						<input type="number" max="100" min="0" value="0" class="form-control h-100 text-center"
-							name="nilai[<?=$item->kriteriaId;?>]" oninput="handleChangeEntry(this.value, <?= $key ?>)" onfocus="this.select()"
-							id="outputRange_<?= $key ?>" required>
+						<input readonly type="number" max="100" min="0" class="form-control h-100 text-center"
+							name="nilai[<?=$item->kriteriaId;?>]" value="<?= $item->nilai ?>" id="outputRange_<?= $key ?>" required>
 					</div>
 				</div>
 			<?php endforeach; ?>
 			<div class="mb-3">
 				<label for="catatanNilai" class="form-label">Masukkan Catatan</label>
-				<textarea class="form-control" id="catatanNilai" name="notes" rows="3" required></textarea>
+				<textarea disabled class="form-control" id="catatanNilai" name="notes" rows="3" required><?= $kriteria[0]->notes ?></textarea>
 			</div>
 			<div class="mb-3">
-				<label for="fileInput" class="form-label">Upload Gambar <br> <span style="font-size:10px">Ukuran gambar
-						maksimal 2 Mb dan Hanya tipe file .jpg/.png</span></label>
-				<input class="form-control" type="file" id="fileInput" name="fileInput" accept="image/jpg, image/png" required>
+				<div id="">
+					<a href="<?= base_url() ?>/assets/uploads/<?= $kriteria[0]->attachment ?>" target="_blank">
+						<img src="<?= base_url() ?>/assets/uploads/<?= $kriteria[0]->attachment ?>" width="50%">
+					</a>
+				</div>
 			</div>
-			<div id="imagePreview"></div>
-			<button type="submit" class="btn btn-primary w-100 gap-2"><i class="fa fa-save"></i> Simpan</button>
 		</form>
 	</div>
 </div>

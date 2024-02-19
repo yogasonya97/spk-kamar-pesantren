@@ -75,10 +75,22 @@ class Rank extends CI_Controller {
 			$date = 'Tahun '.$filterTahun;
 			$data = $this->TrxPenilaianKamar_model->getRankKamarByYearReport($filterTahun);
 		}
+
+		$jenisKelaminUser = $this->session->userdata('jenisKelamin');
+		$jenisKamar = '';
+		if ($jenisKelaminUser == 'A') {
+			$jenisKamar = 'Akhwat';
+		} else if ($jenisKelaminUser == 'I') {
+			$jenisKamar = 'Ikhwan';
+		} else {
+			$jenisKamar = '';
+		}
+
 		// Load view ke Dompdf
         $html = $this->load->view('mobile/report/cetakPdf', [
 			'dataRank' => sortRankDariYangTerbesar($data,'jumlahNilai'),
-			'tgl' => $date
+			'tgl' => $date,
+			'jenisKamar' => $jenisKamar
 		], true);
         $this->pdf->loadHtml($html);
 

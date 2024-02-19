@@ -43,7 +43,7 @@ class Nilai extends CI_Controller {
 
 	public function getListKamar() 
 	{
-		$data = $this->MasterKamar_model->getListDataKamarByJenisKamarUser()->result();
+		$data = $this->TrxPenilaianKamar_model->getListNilaiKamarByWeek();
         $this->response->json($data);
 	}
 
@@ -61,19 +61,69 @@ class Nilai extends CI_Controller {
 
 	}
 
+	public function viewNilai($kamarId)
+	{
+
+		$data['title'] = 'Penilaian Kamar';
+		$data['subtitle'] = 'View Nilai';
+		// $kamarId = $this->uri->segment(4);
+		$data['detailKamar'] = $this->MasterKamar_model->getDetailKamarByWhere(['kamarId' => $kamarId])->row();		
+		$dataKriteria = $this->MasterKriteria_model->getListDataKriteria()->result();
+		$data['kriteria'] = collect(collect($dataKriteria)->map(function ($v) use($kamarId) {
+			$trxNilai = $this->TrxPenilaianKamar_model->getDataTrxByUserWhere([
+				'userIdInput' => $this->session->userdata('user_id'),
+				'kriteriaId' => $v->kriteriaId,
+				'kamarId' => $kamarId
+			])->row();
+			$result = (object) [
+				'kriteriaId' => $v->kriteriaId,
+				'namaKriteria' => $v->namaKriteria,
+				'kamarId' => $trxNilai->kamarId,
+				'nilai' => $trxNilai->nilai,
+				'notes' => $trxNilai->notes,
+				'attachment' => $trxNilai->attachment,
+				'createdAt' => $trxNilai->createdAt
+			];
+			return $result;
+		}))->values();
+
+		$data['totalScore'] = collect($data['kriteria'])->reduce(function ($i, $v) {
+			return $i + $v->nilai;
+		});
+
+		$data['kamarId'] = $kamarId;
+
+		$this->tp->mobile('mobile/clients/nilai/view', $data);
+
+	}
+
 	public function saveNilaiKamar()
 	{
 		$kamarId = $this->input->post('kamarId');
 		$listNilaiArr = $this->input->post('nilai');
 		$notes = $this->input->post('notes');
-		$checkUserNilaiToday = $this->db->get_where('trx_penilaian_kamar', [
-			"userIdInput" => $this->session->userdata('user_id'),
-			"kamarId" => $kamarId,
-			"DATE(createdAt)" => date('Y-m-d')
-		])->result();
+
+		$checkUserNilaiToday = $this->TrxPenilaianKamar_model->validationNilaiWeekEntry($kamarId);
+		
 		if (count($checkUserNilaiToday) > 0) {
-			return $this->response->json(failResponse('Hari ini anda Sudah Memberi Nilai pada kamar ini'));
+			return $this->response->json(failResponse('Minggu ini anda Sudah Memberi Nilai pada kamar ini'));
 		}
+
+		$config['upload_path'] = './assets/uploads/';
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['max_size'] = 20048; // Max size in kilobytes
+		$config['file_name']  = date('Y') . '' . $kamarId . '' . $this->session->userdata('user_id');
+	
+		$this->load->library('upload', $config);
+		
+		$fileName = '';
+		if (!$this->upload->do_upload('fileInput')) {
+			return $this->response->json(failResponse($this->upload->display_errors()));
+		} else {
+		  	$uploadFile = $this->upload->data();
+			$fileName = $uploadFile['file_name'];
+		}
+	
 		foreach($listNilaiArr as $k => $v) {
 			$params = [
 				'userIdInput' => $this->session->userdata('user_id'),
@@ -81,7 +131,7 @@ class Nilai extends CI_Controller {
 				'kriteriaId' => $k,
 				'nilai' => $v,
 				'notes' => $notes,
-				'attachment' => ''
+				'attachment' => $fileName
 			];
 			$this->Crud_model->input_data($params, 'trx_penilaian_kamar');
 		}
@@ -89,23 +139,6 @@ class Nilai extends CI_Controller {
 	
 		return $this->response->json($res);
 	}
-
-	public function uploadFileKeterangan() {
-		$config['upload_path'] = './uploads/';
-		$config['allowed_types'] = 'gif|jpg|png';
-		$config['max_size'] = 100; // Max size in kilobytes
 	
-		$this->load->library('upload', $config);
-	
-		if (!$this->upload->do_upload('fileInput')) {
-		  $error = array('error' => $this->upload->display_errors());
-		  // Handle error, redirect atau tampilkan pesan kesalahan
-		} else {
-		  $data = array('upload_data' => $this->upload->data());
-		  // File berhasil diunggah, lakukan apa yang diperlukan dengan data file yang diunggah
-		}
-	  }
-	
-
 }
 

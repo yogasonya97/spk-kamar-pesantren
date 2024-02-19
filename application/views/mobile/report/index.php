@@ -96,7 +96,6 @@
 					filterTahun: $(`#filterTahun`).val()
 				}
 			});
-			console.log(data);	
 			setListRankKamar(data);
 			return data;
 		} catch (error) {

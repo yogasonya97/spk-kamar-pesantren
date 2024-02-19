@@ -85,6 +85,7 @@ $route['client/nilai'] = 'Clients/Nilai/index';
 $route['client/nilai/get-list-kamar'] = 'Clients/Nilai/getListKamar';
 $route['client/nilai/entry/(:any)'] = 'Clients/Nilai/entryNIlai/$1';
 $route['client/nilai/save-nilai-kamar'] = 'Clients/Nilai/saveNilaiKamar';
+$route['client/nilai/view-nilai/(:any)'] = 'Clients/Nilai/viewNilai/$1';
 
 
 $route['404_override'] = 'ErrorHandle/onProgressPage';

@@ -48,13 +48,16 @@
         .text-center {
             text-align: center !important;
         }
+        .text-right {
+            text-align: right !important;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h2 class="text-center">Ranking Kamar Al-Fahd <br> <?= $tgl; ?></h2>
+                <h2 class="text-center">Ranking Kamar Al-Fahd <br> <?= $jenisKamar;?> <br> <?= $tgl; ?></h2>
             </div>
             <div class="col-md-12">
                 <table class="table table-striped table-bordered">
@@ -66,6 +69,12 @@
                             <th class="text-center">
                                 Kamar
                             </th>
+                            <th class="text-center">
+                                Pembina
+                            </th>
+                            <th class="text-center">
+                                Score
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -73,10 +82,12 @@
                             <tr>
                                 <td class="text-center">Juara <?= $key+1; ?></td>
                                 <td class="text-left">
+                                    <?= $value['jenisKamar'] == 'A' ? 'Akhwat':'Ikhwan'; ?><br>
+                                    <strong><?= $value['namaKamar']; ?></strong><br>
                                     <?= $value['namaAsrama']; ?><br>
-                                    <?= $value['namaKamar']; ?><br>
-                                    Score : <?= $value['jumlahNilai']; ?><br>
                                 </td>
+                                <td class="text-left"><?= $value['pembinaKamar']; ?></td>
+                                <td class="text-center"><?= $value['jumlahNilai']; ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

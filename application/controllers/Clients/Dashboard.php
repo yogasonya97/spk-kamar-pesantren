@@ -39,9 +39,9 @@ class Dashboard extends CI_Controller {
 		$data['title'] = 'Assalammualaikum, wr,wb';
 		$data['subtitle'] = $this->session->userdata('nama')." (".($this->session->userdata('jenisKelamin') == 'A' ? 'Akhwat':'Ikhwan').")";
 		$data['totalClient'] = $this->Users_model->getTotalClient();
-		$data['totalKamar'] = $this->MasterKamar_model->getTotalKamar();
+		$data['totalKamar'] = $this->MasterKamar_model->getTotalKamarByJenisKamar();
 		$data['bulanIni'] = konversiBulan(date('F')).' '.date('Y');
-		// dd($data);
+		$data['jenisKamar'] = $this->session->userdata('jenisKelamin') == 'A' ? 'Akhwat':'Ikhwan';
 		$this->tp->mobile('mobile/clients/index', $data);
 	}
 

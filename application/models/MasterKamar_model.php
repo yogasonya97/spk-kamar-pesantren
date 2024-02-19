@@ -25,4 +25,10 @@ class MasterKamar_model extends CI_Model
         return $this->db->count_all_results('master_kamar');
     }
 
+    public function getTotalKamarByJenisKamar()
+    {
+        $data = $this->db->where('jenisKamar', $this->session->userdata('jenisKelamin'))->count_all_results('master_kamar');
+        return $data;
+    }
+
 }

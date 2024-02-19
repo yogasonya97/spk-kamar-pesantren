@@ -4,7 +4,7 @@
 			<h6 class="title text-white">
 				Jumlah seluruh
 			</h6>
-			<h6 class="menus text-white">kamar</h6>
+			<h6 class="menus text-white">Kamar (<?= $jenisKamar ?>)</h6>
 		</div>
 		<h6 class="title text-white" style="font-size: 4em"><?= $totalKamar; ?></h6>
 	</div>
@@ -23,6 +23,7 @@
 	const setListRankKamarPerMonth = async () => {
 		try {
 			const { data } = await axios.get(`/client/get-rank-kamar-per-month`);
+			
 			let html = urutkanRankTerbesar(data).map((v, i) => {
 				let index = i+1;
 				let content = '';
@@ -56,6 +57,14 @@
 				}
 				return content;
 			});
+			if (data.length <= 0) {
+				html = `
+				<div class="text-center">
+					<img src="/assets/mobile/assets/images/icon/data_not_found.png" class="text-center" width="50%">
+					<h6>Tidak Ada Data</h6>
+				</div>
+				`;
+			}
 			$(`#listRankKamarPerMonth`).html(html);
 		} catch (error) {
 			console.log();

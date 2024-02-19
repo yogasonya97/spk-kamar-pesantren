@@ -36,7 +36,15 @@
 	function filterFunction(e) {
 		const inputPencarian = e.target.value.toLowerCase();
 		// Filter dan tampilkan hasil pencarian
-		const hasilPencarian = listKriteriaG.filter(item => item.namaKriteria.toLowerCase().includes(inputPencarian));
+		let hasilPencarian = listKriteriaG.filter(function(item) {
+			for (let key in item) {
+				// Memeriksa apakah nilai pada setiap kunci objek adalah string
+				if (typeof item[key] === 'string' && item[key].toLowerCase().includes(inputPencarian.toLowerCase())) {
+					return true; // Jika ada kecocokan, kembalikan true
+				}
+			}
+			return false; // Jika tidak ada kecocokan, kembalikan false
+		});
 		setList(hasilPencarian)
 
 	}

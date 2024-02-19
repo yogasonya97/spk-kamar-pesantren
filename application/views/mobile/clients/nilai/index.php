@@ -1,3 +1,26 @@
+<style>
+	.label-teks-status-nilai {
+		position: absolute;
+		top: 0;
+		left: 0;
+		background-color: #ff0059; /* Warna latar belakang label */
+		color: #ffffff; /* Warna teks label */
+		padding: 0px 7px; /* Padding untuk label */
+		border-top-left-radius: 5px; /* Untuk membuat sudut label membulat */
+		font-size: 12px; 
+	}
+	
+	.label-teks-score-nilai {
+		position: absolute;
+		top: 0;
+		right: 0;
+		background-color: #008aff; /* Warna latar belakang label */
+		color: #ffffff; /* Warna teks label */
+		padding: 0px 7px; /* Padding untuk label */
+		border-top-right-radius: 5px; /* Untuk membuat sudut label membulat */
+		font-size: 12px;
+	}
+</style>
 <div class="row">
 	<div class="col-md-12">
 		<div class="search-box">
@@ -27,10 +50,26 @@
 	// Fungsi pencarian
 	function filterFunction(e) {
 		const inputPencarian = e.target.value.toLowerCase();
-		const hasilPencarian = listKamarG.filter(item => item.namaKamar.toLowerCase().includes(inputPencarian));
+		// Filter dan tampilkan hasil pencarian
+		let hasilPencarian = listKamarG.filter(function(item) {
+			for (let key in item) {
+				// Memeriksa apakah nilai pada setiap kunci objek adalah string
+				if (typeof item[key] === 'string' && item[key].toLowerCase().includes(inputPencarian.toLowerCase())) {
+					return true; // Jika ada kecocokan, kembalikan true
+				}
+			}
+			return false; // Jika tidak ada kecocokan, kembalikan false
+		});
 		setList(hasilPencarian)
 
 	}
+	// Fungsi pencarian
+	// function filterFunction(e) {
+	// 	const inputPencarian = e.target.value.toLowerCase();
+	// 	const hasilPencarian = listKamarG.filter(item => item.namaKamar.toLowerCase().includes(inputPencarian));
+	// 	setList(hasilPencarian)
+
+	// }
 
 	const loadListKamar = async () => {
 		const { data } = await axios.get(`${parentUrl}/get-list-kamar`);
@@ -40,8 +79,16 @@
 
 	const setList = (data) => {
 		const html = data.map((v) => {
+			let btn = '';
+
+			if(v.isNilai == 1){
+				btn = `<a href="<?= base_url() ?>client/nilai/view-nilai/${v.kamarId}" class="btn btn-warning btn-sm w-100 text-white font-weight-bold"><i class="fa fa-eye"></i>&nbsp;Lihat</a>`;							
+			} else {
+				btn = `<a href="<?= base_url() ?>client/nilai/entry/${v.kamarId}" class="btn btn-primary btn-sm w-100">Beri nilai</a>`;						
+			}
+
 			return ` 
-				<div class="dz-categories-bx mb-3 p-2 align-items-center">
+				<div class="dz-categories-bx mb-3 p-2 align-items-center" style="position:relative;">
 					<div class="icon-bx">
 						<a href="javascript:void(0)"><img src="<?= base_url() ?>assets/mobile/assets/images/icon/door.png"
 										alt="door" style="max-width:80px;" /></a>
@@ -49,18 +96,23 @@
 					<div class="dz-content w-100 p-2">
 						<div class="row gap-2 justify-content-between gap-md-0">
 							<div class="col-md-8">
+								<span class="menus text-warning list-item">${v.jenisKamar}</span>
 								<h6 class="title fw-bold list-item">
-									${v.namaKamar} (${v.namaPembina})
+									${v.namaKamar} (${v.aliasKamar})
 								</h6>
 								<span class="menus text-primary list-item">${v.namaAsrama}</span>
+								<span class="menus text-primary list-item"><i>${v.namaPembina}</i></span>
 							</div>
 							<div class="col-md-4">
-								<a href="<?= base_url() ?>client/nilai/entry/${v.kamarId}" class="btn btn-primary btn-sm w-100">Beri nilai</a>								
+									${btn}
 							</div>
 						</div>
+						<span class="label-teks-status-nilai ${v.isNilai != '1'?'d-none':''}">Sudah dinilai</span>
+						<span class="label-teks-score-nilai ${v.isNilai != '1'?'d-none':''}">Score: ${v.jumlahNilai}</span>
 					</div>
 				</div>
 			`;
+			
 		});
 		$(`#listKamarDiv`).html(html);
 	}

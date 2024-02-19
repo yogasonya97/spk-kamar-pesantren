@@ -2,7 +2,29 @@
 <!-- <div class="title-bar mb-0">
 	<h5 class="title">Data Kamar</h5>
 </div> -->
-
+<style>
+	.label-teks-status-nilai {
+		position: absolute;
+		top: 0;
+		left: 0;
+		background-color: #ff0059; /* Warna latar belakang label */
+		color: #ffffff; /* Warna teks label */
+		padding: 0px 7px; /* Padding untuk label */
+		border-top-left-radius: 5px; /* Untuk membuat sudut label membulat */
+		font-size: 12px; 
+	}
+	
+	.label-teks-ust {
+		position: absolute;
+		top: 0;
+		right: 0;
+		background-color: #008aff; /* Warna latar belakang label */
+		color: #ffffff; /* Warna teks label */
+		padding: 0px 7px; /* Padding untuk label */
+		border-top-right-radius: 5px; /* Untuk membuat sudut label membulat */
+		font-size: 12px;
+	}
+</style>
 <div class="row">
 	<div class="col-md-12">
 		
@@ -38,7 +60,16 @@
 	function filterFunction(e) {
 		const inputPencarian = e.target.value.toLowerCase();
 		// Filter dan tampilkan hasil pencarian
-		const hasilPencarian = listKamarG.filter(item => item.namaKamar.toLowerCase().includes(inputPencarian));
+		let hasilPencarian = listKamarG.filter(function(item) {
+			for (let key in item) {
+				// Memeriksa apakah nilai pada setiap kunci objek adalah string
+				if (typeof item[key] === 'string' && item[key].toLowerCase().includes(inputPencarian.toLowerCase())) {
+					return true; // Jika ada kecocokan, kembalikan true
+				}
+			}
+			return false; // Jika tidak ada kecocokan, kembalikan false
+		});
+
 		setList(hasilPencarian)
 
 	}
@@ -52,7 +83,7 @@
 	const setList = (data) => {
 		const html = data.map((v) => {
 			return ` 
-				<div class="dz-categories-bx mb-3 align-items-center">
+				<div class="dz-categories-bx mb-3 align-items-center" style="position:relative;">
 					<div class="icon-bx">
 					<a href="javascript:void(0)"><img src="<?= base_url() ?>assets/mobile/assets/images/icon/door.png"
 										alt="" /></a>
@@ -68,12 +99,13 @@
 							</div>
 							<div class="col-md-3">
 								<div class="">
-									<button onclick="updateKamarModel('${v.kamarId}')" type="button" class="btn btn-warning btn-sm mr-3 mb-2 edit"><i class="fa fa-edit"></i></button>
-									<button onclick="deleteKamar('${v.kamarId}')" type="button" class="btn btn-danger btn-sm delete mb-2"><i class="fa fa-trash"></i></button>
+									<button onclick="updateKamarModel('${v.kamarId}')" type="button" class="btn btn-warning btn-sm mr-3 mb-2 ${!btnActPermit.edit?'d-none':''}"><i class="fa fa-edit"></i></button>
+									<button onclick="deleteKamar('${v.kamarId}')" type="button" class="btn btn-danger btn-sm delete mb-2 ${!btnActPermit.delete?'d-none':''}"><i class="fa fa-trash"></i></button>
 								</div>
 							</div>
 						</div>
 					</div>
+					<span class="label-teks-ust">${v.namaPembina}</span>
 				</div>
 			`;
 		});
