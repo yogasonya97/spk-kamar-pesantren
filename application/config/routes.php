@@ -76,6 +76,11 @@ $route['admin/master/kriteria/get-list-data-kriteria'] = 'Admin/Master/Kriteria/
 $route['admin/master/kriteria/save'] = 'Admin/Master/Kriteria/save';
 $route['admin/master/kriteria/delete'] = 'Admin/Master/Kriteria/delete';
 
+$route['admin/config/users'] = 'Admin/Config/AksesUser/index';
+$route['admin/config/users/get-list-data-users'] = 'Admin/Config/AksesUser/getListDataUsers';
+$route['admin/config/users/save-akses-users'] = 'Admin/Config/AksesUser/changeRole';
+$route['admin/config/users/delete-users'] = 'Admin/Config/AksesUser/deleteUsers';
+
 
 
 $route['client'] = 'Clients/Dashboard/index';

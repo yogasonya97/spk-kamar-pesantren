@@ -21,11 +21,14 @@ class Dashboard extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-
-		if (!$this->session->userdata('validate') && $this->session->userdata('role') != '2') {
-			redirect(base_url() . 'login');
-		} else if ($this->session->userdata('validate') && $this->session->userdata('role') != '2'){
-			redirect(base_url() . 'error-403_override');
+		if (!$this->session->userdata('validate')) {
+			if($this->session->userdata('role') != '2' && $this->session->userdata('role') != '3') {
+				redirect(base_url() . 'login');
+			}
+		} else if ($this->session->userdata('validate')){
+			if ($this->session->userdata('role') != '2' && $this->session->userdata('role') != '3') {
+				redirect(base_url() . 'error-403_override');
+			}
 		}
 		if ($this->session->userdata('validate') == true) {
 			$this->id_user = $this->session->userdata('userId');

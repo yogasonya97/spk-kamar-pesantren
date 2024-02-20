@@ -43,7 +43,7 @@ class Nilai extends CI_Controller {
 
 	public function getListKamar() 
 	{
-		$data = $this->TrxPenilaianKamar_model->getListNilaiKamarByWeek();
+		$data = $this->TrxPenilaianKamar_model->getListNilaiKamarByToday();
         $this->response->json($data);
 	}
 
@@ -86,11 +86,9 @@ class Nilai extends CI_Controller {
 			];
 			return $result;
 		}))->values();
-
 		$data['totalScore'] = collect($data['kriteria'])->reduce(function ($i, $v) {
 			return $i + $v->nilai;
 		});
-
 		$data['kamarId'] = $kamarId;
 
 		$this->tp->mobile('mobile/clients/nilai/view', $data);
@@ -103,10 +101,16 @@ class Nilai extends CI_Controller {
 		$listNilaiArr = $this->input->post('nilai');
 		$notes = $this->input->post('notes');
 
-		$checkUserNilaiToday = $this->TrxPenilaianKamar_model->validationNilaiWeekEntry($kamarId);
+
+		$checkUserRole = $this->Users_model->validationUserRolePenilaiByUser($this->session->userdata('user_id'));
+		if ($checkUserRole == 0) {
+			return $this->response->json(failResponse('Anda tidak memiliki akses untuk Memberi Nilai pada kamar ini'));
+		}
+
+		$checkUserNilaiToday = $this->TrxPenilaianKamar_model->validationNilaiTodayEntry($kamarId);
 		
 		if (count($checkUserNilaiToday) > 0) {
-			return $this->response->json(failResponse('Minggu ini anda Sudah Memberi Nilai pada kamar ini'));
+			return $this->response->json(failResponse('Hari ini anda Sudah Memberi Nilai pada kamar ini'));
 		}
 
 		$config['upload_path'] = './assets/uploads/';

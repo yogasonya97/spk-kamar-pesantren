@@ -17,7 +17,7 @@ class Auth extends CI_Controller
 		$getSession = $this->session->userdata;
 		if($getSession['role'] == '1') {
 			return redirect(base_url() . 'admin');
-		} else if($getSession['role'] == '2') {
+		} else if($getSession['role'] == '2' || $getSession['role'] == '3') {
 			return redirect(base_url() . 'client');
 		}
 
@@ -75,11 +75,12 @@ class Auth extends CI_Controller
 
 		if ($result->levelUser == '1') {
 			$res['role'] = '1';
-			return $this->response->json($res);
 		} else if ($result->levelUser == '2') {
 			$res['role'] = '2';
-			return $this->response->json($res);
-		} 
+		} else if ($result->levelUser == '3') {
+			$res['role'] = '2';
+		}
+		return $this->response->json($res);
 		
 	}
 
@@ -109,7 +110,7 @@ class Auth extends CI_Controller
 			'fullName' => $fullName,
 			'jenisKelamin' => $jenisKelamin,
 			'password' => $password,
-			'levelUser' => 2,
+			'levelUser' => 3,
 		];
 		
 		$res = $this->Crud_model->input_data($params, 'users');

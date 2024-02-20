@@ -49,7 +49,7 @@ class Kamar extends CI_Controller {
 		} else {
 			$data = $this->MasterKamar_model->getListDataKamarByJenisKamarUser()->result();
 		}
-        $this->response->json($data);
+        return $this->response->json($data);
     }
 
     public function save()
