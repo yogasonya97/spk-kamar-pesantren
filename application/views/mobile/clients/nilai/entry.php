@@ -41,7 +41,7 @@
 				</div>
 			</div>
 		</div>
-		<h6>Form Enty Nilai</h6>
+		<h6>Form Entry Nilai</h6>
 		<form id="formEntryKamar" class="validation-form-kamar" novalidate>
 			<?php foreach ($kriteria as $key => $item): ?>
 				<div class="mb-3">
@@ -121,7 +121,7 @@
             var fileType = file.type; // Jenis file
             
             // Maksimal 2MB
-            var maxSize = 2 * 1024 * 1024; // Konversi MB ke bytes
+            var maxSize = 10 * 1024 * 1024; // Konversi MB ke bytes
             // Pemeriksaan ukuran file dan jenis file
             if (fileSize <= maxSize && (fileType === 'image/jpeg' || fileType === 'image/png')) {				
 				$('#imagePreview').show();

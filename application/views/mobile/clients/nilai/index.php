@@ -96,18 +96,16 @@
 					<div class="dz-content w-100 p-2">
 						<div class="row gap-2 justify-content-between gap-md-0">
 							<div class="col-md-8">
-								<span class="menus text-warning list-item">${v.jenisKamar}</span>
+								<span class="menus text-warning list-item">${v.namaAsrama}</span>
 								<h6 class="title fw-bold list-item">
-									${v.namaKamar} (${v.aliasKamar})
+									${v.namaKamar}
 								</h6>
-								<span class="menus text-primary list-item">${v.namaAsrama}</span>
 								<span class="menus text-primary list-item"><i>${v.namaPembina}</i></span>
 							</div>
 							<div class="col-md-4">
 									${btn}
 							</div>
-						</div>
-						<span class="label-teks-status-nilai ${v.isNilai != '1'?'d-none':''}">Sudah dinilai</span>
+						</div>						
 						<span class="label-teks-score-nilai ${v.isNilai != '1'?'d-none':''}">Score: ${v.jumlahNilai}</span>
 					</div>
 				</div>

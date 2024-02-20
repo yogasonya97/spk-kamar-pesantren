@@ -37,7 +37,7 @@ class Nilai extends CI_Controller {
 	public function index()
 	{
 		$data['title'] = 'Penilaian Kamar';
-		$data['subtitle'] = 'Daftar seleruh kamar';
+		$data['subtitle'] = 'Daftar seluruh kamar';
 		$this->tp->mobile('mobile/clients/nilai/index', $data);
 	}
 
@@ -111,7 +111,7 @@ class Nilai extends CI_Controller {
 
 		$config['upload_path'] = './assets/uploads/';
 		$config['allowed_types'] = 'gif|jpg|png';
-		$config['max_size'] = 20048; // Max size in kilobytes
+		$config['max_size'] = 10 * 1024 * 1024; // Max 10 MB size in kilobytes
 		$config['file_name']  = date('Y') . '' . $kamarId . '' . $this->session->userdata('user_id');
 	
 		$this->load->library('upload', $config);
