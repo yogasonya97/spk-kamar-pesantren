@@ -1,6 +1,6 @@
 {
   "background_color": "var(--primary)",
-  "description": "Ombe - Coffee Shop Mobile App Template ( Bootstrap + PWA ) | DexignZone",
+  "description": "Penilaian Kamar - Al-Fahd Jakabaring",
   "display": "standalone",
   "icons": [
 	{
@@ -9,7 +9,7 @@
 	  "type": "image/png"
 	}
   ],
-  "name": "Ombe - Coffee Shop Mobile App Template",
-  "short_name": "Ombe",
-  "start_url": "index.html"
+  "name": "Penilaian Kamar - Al-Fahd",
+  "short_name": "SPK",
+  "start_url": "https://penilaian-kamar-alfahd.com"
 }
