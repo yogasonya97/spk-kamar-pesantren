@@ -260,4 +260,6 @@ class TrxPenilaianKamar_model extends CI_Model
 		});
         return collect($data)->values();
     }
+
+    public function getTotalKamarYangDinilaiByJenisKamar(Request $request, $id)
 }
