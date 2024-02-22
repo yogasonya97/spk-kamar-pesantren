@@ -22,7 +22,7 @@
 </div>
 
 <div class="title-bar">
-	<h5 class="title">3 Kamar terbaik</h5>
+	<h5 class="title">10 Kamar terbaik</h5>
 	<a href="products.html"><?= $bulanIni; ?></a>
 </div>
 
@@ -35,7 +35,7 @@
 			let html = urutkanRankTerbesar(data).map((v, i) => {
 				let index = i+1;
 				let content = '';
-				if (index <= 3) {
+				if (index <= 10) {
 					content = `
 						<li>
 							<div class="dz-card list">
