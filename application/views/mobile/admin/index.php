@@ -65,6 +65,14 @@
 				}
 				return content;
 			});
+			if (data.length <= 0) {
+				html = `
+				<div class="text-center">
+					<img src="/assets/mobile/assets/images/icon/data_not_found.png" class="text-center" width="50%">
+					<h6>Tidak Ada Data</h6>
+				</div>
+				`;
+			}
 			$(`#listRankKamarPerMonth`).html(html);
 		} catch (error) {
 			console.log();
