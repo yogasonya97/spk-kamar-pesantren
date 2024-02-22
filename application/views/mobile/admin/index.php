@@ -6,24 +6,45 @@
 			</h6>
 			<h6 class="menus text-white">pengguna</h6>
 		</div>
-		<h6 class="title text-white" style="font-size: 4em"><?= $totalClient; ?></h6>
+		<h6 class="title text-white" style="font-size: 4em"><?=$totalClient;?></h6>
 	</div>
 </div>
-<div class="dz-categories-bx mb-5 bg-primary">
-	<div class="dz-content w-100 d-flex justify-content-between align-items-center">
-		<div>
-			<h6 class="title text-white">
-				Jumlah seluruh
-			</h6>
-			<h6 class="menus text-white">kamar</h6>
+<div class="row">
+	<div class="col-md-6">
+		<div class="dz-categories-bx mb-5 bg-primary">
+			<div class="dz-content w-100 d-flex justify-content-between align-items-center">
+				<div>
+					<h6 class="title text-white">
+						Jumlah
+					</h6>
+					<h6 class="title text-white">
+						yang dinilai
+					</h6>
+					<h6 class="menus text-white">minggu ini</h6>
+				</div>
+				<h6 class="title text-white" style="font-size: 4em"><?=$totalKamarYangDiNilai;?></h6>
+			</div>
 		</div>
-		<h6 class="title text-white" style="font-size: 4em"><?= $totalKamar; ?></h6>
 	</div>
+	<div class="col-md-6">
+		<div class="dz-categories-bx mb-5 bg-primary">
+			<div class="dz-content w-100 d-flex justify-content-between align-items-center">
+				<div>
+					<h6 class="title text-white">
+						Jumlah seluruh
+					</h6>
+					<h6 class="menus text-white">kamar</h6>
+				</div>
+				<h6 class="title text-white" style="font-size: 4em"><?=$totalKamar;?></h6>
+			</div>
+		</div>
+	</div>
+
 </div>
 
 <div class="title-bar">
 	<h5 class="title">10 Kamar terbaik</h5>
-	<a href="products.html"><?= $bulanIni; ?></a>
+	<h5 class="text-success"><?=$bulanIni;?></h5>
 </div>
 
 <ul class="featured-list" id="listRankKamarPerMonth">
@@ -40,7 +61,7 @@
 						<li>
 							<div class="dz-card list">
 								<div class="dz-media border bg-primary rounded">
-									<a href="javascript:void(0)"><img src="<?= base_url() ?>assets/mobile/assets/images/icon/door.png"
+									<a href="javascript:void(0)"><img src="<?=base_url()?>assets/mobile/assets/images/icon/door.png"
 										alt="" /></a>
 									<div class="dz-rating w-100 text-center" style="left:0;">Juara ${i+1}</div>
 								</div>

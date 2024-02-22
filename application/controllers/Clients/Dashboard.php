@@ -44,6 +44,7 @@ class Dashboard extends CI_Controller {
 		$data['totalClient'] = $this->Users_model->getTotalClient();
 		$data['totalKamar'] = $this->MasterKamar_model->getTotalKamarByJenisKamar();
 		$data['bulanIni'] = konversiBulan(date('F')).' '.date('Y');
+		$data['totalKamarYangDiNilai'] = $this->TrxPenilaianKamar_model->getTotalKamarYangDinilai();
 		$data['jenisKamar'] = $this->session->userdata('jenisKelamin') == 'A' ? 'Akhwat':'Ikhwan';
 		$this->tp->mobile('mobile/clients/index', $data);
 	}

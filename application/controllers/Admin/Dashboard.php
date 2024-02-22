@@ -41,6 +41,8 @@ class Dashboard extends CI_Controller {
 		$data['subtitle'] = $this->session->userdata('nama');
 		$data['totalClient'] = $this->Users_model->getTotalClient();
 		$data['totalKamar'] = $this->MasterKamar_model->getTotalKamar();
+		$data['totalKamarYangDiNilai'] = $this->TrxPenilaianKamar_model->getTotalKamarYangDinilai();
+		// dd($data);
 		$data['bulanIni'] = konversiBulan(date('F')).' '.date('Y');
 		$this->tp->mobile('mobile/admin/index', $data);
 	}

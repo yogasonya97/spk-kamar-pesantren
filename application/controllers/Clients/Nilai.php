@@ -77,7 +77,7 @@ class Nilai extends CI_Controller {
 			$result = (object) [
 				'kriteriaId' => $v->kriteriaId,
 				'namaKriteria' => $v->namaKriteria,
-				'kamarId' => $trxNilai->kamarId,
+				'kamarId' => $kamarId,
 				'nilai' => $trxNilai->nilai,
 				'notes' => $trxNilai->notes,
 				'attachment' => $trxNilai->attachment,
@@ -89,7 +89,6 @@ class Nilai extends CI_Controller {
 			return $i + $v->nilai;
 		});
 		$data['kamarId'] = $kamarId;
-
 		$this->tp->mobile('mobile/clients/nilai/view', $data);
 
 	}

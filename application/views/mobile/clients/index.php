@@ -1,20 +1,38 @@
-<div class="dz-categories-bx mb-5 bg-primary">
-	<div class="dz-content w-100 d-flex justify-content-between align-items-center">
-		<div>
-			<h6 class="title text-white">
-				Jumlah seluruh
-			</h6>
-			<h6 class="menus text-white">Kamar (<?= $jenisKamar ?>)</h6>
+<div class="row">
+	<div class="col-md-6">
+		<div class="dz-categories-bx mb-5 bg-primary">
+			<div class="dz-content w-100 d-flex justify-content-between align-items-center">
+				<div>
+					<h6 class="title text-white">
+						Jumlah
+					</h6>
+					<h6 class="title text-white">
+						yang dinilai
+					</h6>
+					<h6 class="menus text-white">minggu ini</h6>
+				</div>
+				<h6 class="title text-white" style="font-size: 4em"><?=$totalKamarYangDiNilai;?></h6>
+			</div>
 		</div>
-		<h6 class="title text-white" style="font-size: 4em"><?= $totalKamar; ?></h6>
+	</div>
+	<div class="col-md-6">
+		<div class="dz-categories-bx mb-5 bg-primary">
+			<div class="dz-content w-100 d-flex justify-content-between align-items-center">
+				<div>
+					<h6 class="title text-white">
+						Jumlah seluruh
+					</h6>
+					<h6 class="menus text-white">Kamar (<?= $jenisKamar ?>)</h6>
+				</div>
+				<h6 class="title text-white" style="font-size: 4em"><?= $totalKamar; ?></h6>
+			</div>
+		</div>
 	</div>
 </div>
 
 <div class="title-bar">
 	<h5 class="title">10 Kamar terbaik</h5>
-	<a href="<?= base_url() ?>report/rank">
-		<?= $bulanIni; ?>
-	</a>
+	<h5 class="text-success"><?=$bulanIni;?></h5>
 </div>
 
 <ul class="featured-list" id="listRankKamarPerMonth">

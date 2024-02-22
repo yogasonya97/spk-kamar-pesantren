@@ -261,8 +261,19 @@ class TrxPenilaianKamar_model extends CI_Model
         return collect($data)->values();
     }
 
-    public function getTotalKamarYangDinilaiByJenisKamar(Request $request, $id) 
+    public function getTotalKamarYangDinilai() 
     {
-        return '';
+		$userIdSession = $this->session->userdata('user_id');
+		$roleUser = $this->session->userdata('role'); 
+		$jenisKamarUser = $this->session->userdata('jenisKelamin'); 
+		$this->db->select('trx_penilaian_kamar.kamarId');
+		$this->db->join('master_kamar', 'trx_penilaian_kamar.kamarId = master_kamar.kamarId');
+		$this->db->where("WEEK(trx_penilaian_kamar.createdAt) = WEEK(CURRENT_DATE())", NULL, FALSE);
+		if ($roleUser != '1') {
+			$this->db->where("master_kamar.jenisKamar",$jenisKamarUser);
+			$this->db->where("trx_penilaian_kamar.userIdInput",$userIdSession);
+		}
+		$this->db->group_by('trx_penilaian_kamar.kamarId');
+        return $this->db->count_all_results('trx_penilaian_kamar');
     }
 }
